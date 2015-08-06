@@ -18,10 +18,10 @@ def load_movies():
 
     save_movie = None
 
-    for i in range(10):
-    # for i in range(len(movie_list)):
-        title = movie_list[i][8]
-
+    # for i in range(60):
+    for i in range(len(movie_list)):
+        title = movie_list[i][8].rstrip()
+        # import pdb; pdb.set_trace()
         if title <> save_movie:
             print
             print 'new movie:', title
@@ -33,7 +33,9 @@ def load_movies():
 
 # Get actor id's and load movie_actors table
             actor_id_list = get_actor_ids(movie_line)
-# TODO Load movie_actors table
+            if actor_id_list != []:
+                load_movie_actors(movie_id_set, actor_id_list)
+            
 # TODO Load movie locations
             # load_movie_actors(actor_id_list, movie_id)
             # print 'writers:', movie_list[i][15]
@@ -61,7 +63,7 @@ def get_director_id(movie_line):
         Return director id
     """
 
-    seed_director_name = movie_line[14]
+    seed_director_name = movie_line[14].rstrip()
     return_director_id = None
     
     try:
@@ -85,18 +87,29 @@ def add_new_movie(movie_line, director_id_set):
     """
     return_movie_id = None
 
-    if movie_line[15] == 'N/A':
+    if movie_line[12] in ('N/A', 'NA') or movie_line[12] is None:
+        production_company = None
+    else:
+        production_company = movie_line[12].rstrip()
+
+    if movie_line[13] in ('N/A', 'NA') or movie_line[13] is None:
+        movie_distributor = None
+    else:
+        movie_distributor = movie_line[13].rstrip()
+
+    if movie_line[15] in ('N/A', 'NA') or movie_line[15] is None:
+    # if movie_line[15] == 'N/A':
         movie_writers = None
     else:
-        movie_writers = movie_line[15]
-       
+        movie_writers = movie_line[15].rstrip()
+
     new_movie = Movie(
-        movie_title = movie_line[8],
-        release_year = int(movie_line[9]),    
-        production_company = movie_line[12],
+        movie_title = movie_line[8].rstrip(),
+        release_year = int(movie_line[9].rstrip()),    
+        production_company = production_company,
         director_id = director_id_set,
         movie_writers = movie_writers,
-        movie_distributor = movie_line[13]
+        movie_distributor = movie_distributor
         )
     db.session.add(new_movie)
     db.session.flush()
@@ -115,22 +128,12 @@ def get_actor_ids(movie_line):
     seed_actor_names = []
     return_actor_ids = []
 
-    # seed_actor_name1 = movie_line[16]
-    # seed_actor_name2 = movie_line[17]
-    # seed_actor_name3 = movie_line[18]
-
-    # print 'seed_actor_names_input', seed_actor_name1, seed_actor_name2, seed_actor_name3
-
     for x in range(16, 19):
         if movie_line[x] is not None:
-            seed_actor_names.append(movie_line[x])
-    # print 'seed_actor_names list: ', seed_actor_names
-
+            seed_actor_names.append(movie_line[x].rstrip())
     
     # For each actor in list, does actor exist in Actor table?
     for x in range(len(seed_actor_names)):
-
-        # print 'line 120 value of x:', x
         try:
             actor_object = Actor.query.filter_by(actor_name=seed_actor_names[x]).one()
             return_actor_id = actor_object.actor_id 
@@ -140,14 +143,28 @@ def get_actor_ids(movie_line):
             actor_name=seed_actor_names[x]
             )
             db.session.add(new_actor)
-            db.session.commit()
-# TODO: Use flush session to get actor id's
-            # Retrieve actor added above to get actor id 
-            actor_object = Actor.query.filter_by(actor_name=seed_actor_names[x]).one()
-            return_actor_ids.append(actor_object.actor_id)
+            db.session.flush()
+            return_actor_ids.append(new_actor.actor_id)
+    db.session.commit()
           
-    print 'return_actor_ids: ', return_actor_ids
     return return_actor_ids
+
+def load_movie_actors(movie_id_set, actor_id_list):
+    """Add 1-3 actors for a movie to the movie_actors table: 
+    """
+
+    for i in range(len(actor_id_list)):
+        
+        new_movie_actor = Movie_actor(
+        movie_id=movie_id_set,
+        actor_id=actor_id_list[i]
+        )
+        db.session.add(new_movie_actor)
+        # db.session.flush()
+        # return_actor_ids.append(new_actor.actor_id)
+    db.session.commit()
+          
+    # return return_actor_ids
 
 if __name__ == "__main__":
     connect_to_db(app)

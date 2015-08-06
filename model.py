@@ -39,6 +39,10 @@ class Movie(db.Model):
                            backref=db.backref('movies', order_by=movie_id)
                            )
 
+    actors = db.relationship('Actor',
+                        secondary='movie_actors',
+                        backref='movies')
+
     def __repr__(self):
         return "<movie_id=%d title=%s>" % (self.movie_id, self.movie_title)
 
@@ -53,7 +57,7 @@ class Movie_location(db.Model):
     longitude = db.Column(db.Float)
     fun_fact = db.Column(db.Text) 
 
-    movie_rel = db.relationship('Movie',
+    movie_location_rel = db.relationship('Movie',
                            backref=db.backref('movies', order_by=location_id)
                            )
 
@@ -68,11 +72,11 @@ class Movie_actor(db.Model):
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'))
     actor_id = db.Column(db.Integer, db.ForeignKey('actors.actor_id'))
 
-    movie_rel = db.relationship('Movie',
-                           backref=db.backref('movies', order_by=movie_actor_id)
+    movie_actor_rel = db.relationship('Movie',
+                           backref=db.backref('movie_actors', order_by=actor_id)
                            )
     actor_rel = db.relationship('Actor',
-                           backref=db.backref('actors', order_by=actor_id)
+                           backref=db.backref('movie_actors', order_by=movie_id)
                            )
 
     def __repr__(self):

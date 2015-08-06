@@ -20,14 +20,14 @@ def load_movies():
 
     # for i in range(60):
     for i in range(len(movie_list)):
-        title = movie_list[i][8].rstrip()
+        title = movie_list[i][8].strip()
+        movie_line = movie_list[i]
         # import pdb; pdb.set_trace()
         if title <> save_movie:
             print
             print 'new movie:', title
             save_movie = title 
-            movie_line = movie_list[i]
-            
+                   
             director_id_set = get_director_id(movie_line)
             movie_id_set = add_new_movie(movie_line, director_id_set)
 
@@ -37,6 +37,9 @@ def load_movies():
                 load_movie_actors(movie_id_set, actor_id_list)
             
 # TODO Load movie locations
+        if movie_list[i][10] is not None:
+            load_movie_location(movie_line, movie_id_set)
+
             # load_movie_actors(actor_id_list, movie_id)
             # print 'writers:', movie_list[i][15]
             # print 'actor_1:', movie_list[i][16]
@@ -63,7 +66,7 @@ def get_director_id(movie_line):
         Return director id
     """
 
-    seed_director_name = movie_line[14].rstrip()
+    seed_director_name = movie_line[14].strip()
     return_director_id = None
     
     try:
@@ -90,22 +93,21 @@ def add_new_movie(movie_line, director_id_set):
     if movie_line[12] in ('N/A', 'NA') or movie_line[12] is None:
         production_company = None
     else:
-        production_company = movie_line[12].rstrip()
+        production_company = movie_line[12].strip()
 
     if movie_line[13] in ('N/A', 'NA') or movie_line[13] is None:
         movie_distributor = None
     else:
-        movie_distributor = movie_line[13].rstrip()
+        movie_distributor = movie_line[13].strip()
 
     if movie_line[15] in ('N/A', 'NA') or movie_line[15] is None:
-    # if movie_line[15] == 'N/A':
         movie_writers = None
     else:
-        movie_writers = movie_line[15].rstrip()
+        movie_writers = movie_line[15].strip()
 
     new_movie = Movie(
-        movie_title = movie_line[8].rstrip(),
-        release_year = int(movie_line[9].rstrip()),    
+        movie_title = movie_line[8].strip(),
+        release_year = int(movie_line[9].strip()),    
         production_company = production_company,
         director_id = director_id_set,
         movie_writers = movie_writers,
@@ -130,13 +132,13 @@ def get_actor_ids(movie_line):
 
     for x in range(16, 19):
         if movie_line[x] is not None:
-            seed_actor_names.append(movie_line[x].rstrip())
+            seed_actor_names.append(movie_line[x].strip())
     
     # For each actor in list, does actor exist in Actor table?
     for x in range(len(seed_actor_names)):
         try:
-            actor_object = Actor.query.filter_by(actor_name=seed_actor_names[x]).one()
-            return_actor_id = actor_object.actor_id 
+            actor_object = Actor.query.filter_by(actor_name=seed_actor_names[x]).one() 
+            return_actor_ids.append(actor_object.actor_id)
         
         except NoResultFound:
             new_actor = Actor(
@@ -160,11 +162,28 @@ def load_movie_actors(movie_id_set, actor_id_list):
         actor_id=actor_id_list[i]
         )
         db.session.add(new_movie_actor)
-        # db.session.flush()
-        # return_actor_ids.append(new_actor.actor_id)
+        
     db.session.commit()
-          
-    # return return_actor_ids
+
+def load_movie_location(movie_line, movie_id_set):
+    """Add location for a movie to the movie_locations table: 
+    """
+    if movie_line[11] is None:
+        fun_fact = None
+    else:
+        fun_fact = movie_line[11].strip()
+        
+    new_movie_location = Movie_location(
+    movie_id=movie_id_set,
+    location_description=movie_line[10].strip(),
+    latitude=None,
+    longitude=None,
+    fun_fact=fun_fact
+    )
+
+    db.session.add(new_movie_location)
+        
+    db.session.commit()
 
 if __name__ == "__main__":
     connect_to_db(app)

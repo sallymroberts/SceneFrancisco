@@ -34,6 +34,11 @@ class Movie(db.Model):
     director_id = db.Column(db.Integer, db.ForeignKey('directors.director_id'))
     movie_writers = db.Column(db.String(50))
     movie_distributor = db.Column(db.String(50))
+    imdb_id = db.Column(db.String(9))
+    imdb_url = db.Column(db.String(60))
+    image_url = db.Column(db.String(75))
+    genre = db.Column(db.String(20))
+    plot = db.Column(db.Text)
 
     director_rel = db.relationship('Director',
                            backref=db.backref('movies', order_by=movie_id)
@@ -51,7 +56,7 @@ class Movie_location(db.Model):
     __tablename__ = "movie_locations" 
 
     location_id = db.Column(db.Integer, primary_key=True)
-    movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'))
+    movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'), nullable=False)
     location_description = db.Column(db.String(100), nullable=False)
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
@@ -69,8 +74,8 @@ class Movie_actor(db.Model):
     __tablename__ = "movie_actors" 
 
     movie_actor_id = db.Column(db.Integer, primary_key=True)
-    movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'))
-    actor_id = db.Column(db.Integer, db.ForeignKey('actors.actor_id'))
+    movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'), nullable=False)
+    actor_id = db.Column(db.Integer, db.ForeignKey('actors.actor_id'), nullable=False)
 
     movie_actor_rel = db.relationship('Movie',
                            backref=db.backref('movie_actors', order_by=actor_id)

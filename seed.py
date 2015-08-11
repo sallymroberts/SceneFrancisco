@@ -36,7 +36,7 @@ def load_movies():
             if actor_id_list != []:
                 load_movie_actors(movie_id_set, actor_id_list)
             
-# TODO Load movie locations
+# Load movie locations
         if movie_list[i][10] is not None:
             load_movie_location(movie_line, movie_id_set)
 

@@ -24,12 +24,39 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Homepage."""
 
-    if session["user_id"]:
-        pass
-    else:
-        session["user_id"] = None
+    # if session["user_id"]:
+    #     pass
+    # else:
+    #     session["user_id"] = None
     return render_template("homepage.html")
 
+@app.route('/movies')
+def movie_list():
+    """Show list of movies."""
+
+    movies = Movie.query.order_by(Movie.movie_title).all()
+
+    return render_template("movie_list.html", movies=movies)
+
+@app.route('/movies/<int:movie_id>')
+def movie_detail(movie_id):
+    """Show movie detail."""
+
+    movie = Movie.query.filter_by(movie_id=movie_id).one()
+
+    return render_template("movie_detail.html", movie=movie)
 ##############################################################################
 # Helper functions
+
+if __name__ == "__main__":
+    # We have to set debug=True here, since it has to be True at the point
+    # that we invoke the DebugToolbarExtension
+    app.debug = True
+
+    connect_to_db(app)
+
+    # Use the DebugToolbar
+    DebugToolbarExtension(app)
+
+    app.run()
 

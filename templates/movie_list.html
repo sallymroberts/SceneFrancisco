@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2>Movies</h2>
+    <ul>
+      {% for movie in movies %}
+          <li>
+              {{ movie.movie_title }} ({{ movie.release_year}}) 
+              <a href="/movies/{{ movie.movie_id }}">Filming map</a>  
+              <a href="{{ movie.imdb_url }}" target="_blank">IMDB</a>
+          </li>
+      {% endfor %}
+    </ul>
+
+{% endblock %}

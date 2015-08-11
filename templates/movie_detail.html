@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>{{ movie.movie_title }} ({{ movie.release_year }})</h3>
+<p>
+Production Company: {{ movie.production_company }}<br>
+Writer(s): {{ movie.movie_writers }}<br>
+Distributor: {{ movie.movie_distributor }}<br><br>
+<a href="{{ movie.imdb_url }}" target="_blank">IMDB link</a>
+</p>
+
+
+{% endblock %}

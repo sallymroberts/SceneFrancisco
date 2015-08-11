@@ -93,9 +93,6 @@ def get_latlng():
             else:
                 obj.latitude = g.latlng[0]
                 obj.longitude = g.latlng[1]
-                # print "obj.latitude after: ", obj.latitude
-                # print "obj.longitude after: ", obj.longitude
-                # print
                 
                 db.session.add(obj)
                 sleep(0.5)
@@ -111,5 +108,7 @@ def get_latlng():
 if __name__ == "__main__":
     connect_to_db(app)
 
-    get_latlng()
+    imdb_id = imdb_id_from_title("Final Destination")
+    print imdb_id
+    # get_latlng()
     # load_imdb_id()

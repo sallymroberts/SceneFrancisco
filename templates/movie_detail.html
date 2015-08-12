@@ -11,6 +11,13 @@ Production Company: {{ movie.production_company }}<br>
 Writer(s): {{ movie.movie_writers }}<br>
 Distributor: {{ movie.movie_distributor }}<br><br>
 <a href="{{ movie.imdb_url }}" target="_blank">IMDB link</a>
+
+<ul>
+  {% for location in locations %}
+    <li>Location: {{ location.latitude }} {{ location.longitude }} {{ location.location_description }} </li>
+  {% endfor %}
+</ul>
+
 </p>
  <div id="map-canvas", style="height:400px"></div>
 

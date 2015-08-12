@@ -43,8 +43,10 @@ def movie_detail(movie_id):
     """Show movie detail."""
 
     movie = Movie.query.filter_by(movie_id=movie_id).one()
+    locations = Movie_location.query.filter_by(movie_id=movie_id).all()
+    print locations
 
-    return render_template("movie_detail.html", movie=movie)
+    return render_template("movie_detail.html", movie=movie, locations=locations)
 ##############################################################################
 # Helper functions
 

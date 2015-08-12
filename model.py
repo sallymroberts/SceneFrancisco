@@ -40,6 +40,7 @@ class Movie(db.Model):
     genre = db.Column(db.String(20))
     plot = db.Column(db.Text)
 
+
     director_rel = db.relationship('Director',
                            backref=db.backref('movies', order_by=movie_id)
                            )
@@ -67,7 +68,8 @@ class Movie_location(db.Model):
                            )
 
     def __repr__(self):
-        return "<movie_location_id=%d movie_id=%s location_description=%s>" % (self.movie_location_id, self.movie_id, self.location_description)
+        return "<location_id=%d movie_id=%s location_description=%s>" % (self.location_id, self.movie_id, self.location_description)
+
 
 class Movie_actor(db.Model):
 

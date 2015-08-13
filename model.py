@@ -20,8 +20,8 @@ class Director(db.Model):
     director_id = db.Column(db.Integer, primary_key=True)
     director_name = db.Column(db.String(50), nullable=False) 
 
-    def __repr__(self):
-        return "<director_id=%d director_name=%s>" % (self.director_id, self.director_name)
+    # def __repr__(self):
+    #     return "<director_id=%d director_name=%s>" % (self.director_id, self.director_name)
 
 class Movie(db.Model):
 
@@ -67,8 +67,8 @@ class Movie_location(db.Model):
                            backref=db.backref('movies', order_by=location_id)
                            )
 
-    def __repr__(self):
-        return "<location_id=%d movie_id=%s location_description=%s>" % (self.location_id, self.movie_id, self.location_description)
+    # def __repr__(self):
+    #     return "<location_id=%d movie_id=%s location_description=%s>" % (self.location_id, self.movie_id, self.location_description)
 
 
 class Movie_actor(db.Model):
@@ -86,8 +86,8 @@ class Movie_actor(db.Model):
                            backref=db.backref('movie_actors', order_by=movie_id)
                            )
 
-    def __repr__(self):
-        return "<movie_actor_id=%d movie_id=%d actor_id=%d>" % (self.movie_actor_id, self.movie_id, self.actor_id)
+    # def __repr__(self):
+    #     return "<movie_actor_id=%d movie_id=%d actor_id=%d>" % (self.movie_actor_id, self.movie_id, self.actor_id)
 
 class Actor(db.Model):
 
@@ -96,8 +96,8 @@ class Actor(db.Model):
     actor_id = db.Column(db.Integer, primary_key=True)
     actor_name = db.Column(db.String(50), nullable=False) 
 
-    def __repr__(self):
-        return "<actor_id=%d actor_name=%s>" % (self.actor_id, self.actor_name)
+    # def __repr__(self):
+    #     return "<actor_id=%d actor_name=%s>" % (self.actor_id, self.actor_name)
 
 ##############################################################################
 # Helper functions

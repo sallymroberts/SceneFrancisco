@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 
-
-<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
-
 {% block content %}
+
+<!-- <script src="/static/locations_map.js"></script> -->
 
 <h3>{{ movie.movie_title }} ({{ movie.release_year }})</h3>
 <p>
@@ -19,16 +18,18 @@ Distributor: {{ movie.movie_distributor }}<br><br>
 </ul>
 
 </p>
- <div id="map-canvas", style="height:400px"></div>
+
+{% endblock %}
 
 
-<script src="https://maps.googleapis.com/maps/api/js"></script>
+{% block map %}
+    <div id="map-canvas", style="height:500px"></div>
 <script>
 function initialize() {
 
-	var myLatlng = new google.maps.LatLng(37.7892921, -122.3989821);
-	var contentString =
-      '<div id="content">'+ "<p>SF Chronicle Building (901 Mission St)</p>"+'</div>';
+  var myLatlng = new google.maps.LatLng(37.776235, -122.446729)
+  var contentString =
+      '<div id="content">'+ "<p></p>"+'</div>';
     var mapOptions = {
       zoom: 12,
       center: myLatlng
@@ -37,7 +38,6 @@ function initialize() {
     var map = new google.maps.Map(
         document.getElementById('map-canvas'),
         mapOptions);
-
     var infowindow = new google.maps.InfoWindow({
            content: contentString
     }); 
@@ -46,12 +46,13 @@ function initialize() {
       position: myLatlng,
       map: map,
       title: 'A'
-  	});
-	google.maps.event.addListener(marker, 'click', function() {
+    });
+  google.maps.event.addListener(marker, 'click', function() {
     infowindow.open(map,marker);
-  	});
-	 
+    });
+   
 }
+
 google.maps.event.addDomListener(window, 'load', initialize);
 </script>
 

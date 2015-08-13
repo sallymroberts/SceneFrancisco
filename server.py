@@ -44,12 +44,12 @@ def movie_detail(movie_id):
 
     movie = Movie.query.filter_by(movie_id=movie_id).one()
     locations = Movie_location.query.filter_by(movie_id=movie_id).all()
-    actors = Movie_actor.query.filter_by(movie_id=movie_id).all()
-    print "Actor: ", actors
+    # actors = Movie_actor.query.filter_by(movie_id=movie_id).all()
+    # print "Actor: ", actors
     # director_obj = Director.query.filter_by(movie.director_id=director.director_id).all()
     # print "Director: ", director_obj
 
-    return render_template("movie_detail.html", movie=movie, locations=locations, actors=actors)
+    return render_template("movie_detail.html", movie=movie, locations=locations)
 ##############################################################################
 # Helper functions
 

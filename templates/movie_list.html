@@ -5,8 +5,10 @@
     <ul>
       {% for movie in movies %}
           <li>
-              {{ movie.movie_title }} ({{ movie.release_year}}) 
-              <a href="/movies/{{ movie.movie_id }}">Filming map</a>  
+              {{ movie.movie_title }} ({{ movie.release_year}})
+              {% if movie.locations %}
+                <a href="/movies/{{ movie.movie_id }}">Filming map</a>
+              {% endif %}   
               <a href="{{ movie.imdb_url }}" target="_blank">IMDB</a>
           </li>
       {% endfor %}

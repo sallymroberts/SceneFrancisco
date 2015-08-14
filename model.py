@@ -64,7 +64,7 @@ class Movie_location(db.Model):
     fun_fact = db.Column(db.Text) 
 
     movie_location_rel = db.relationship('Movie',
-                           backref=db.backref('movies', order_by=location_id)
+                           backref=db.backref('locations', order_by=location_id)
                            )
 
     # def __repr__(self):

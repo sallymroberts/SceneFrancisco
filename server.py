@@ -44,12 +44,23 @@ def movie_detail(movie_id):
 
     movie = Movie.query.filter_by(movie_id=movie_id).one()
     locations = Movie_location.query.filter_by(movie_id=movie_id).all()
+
+    json_compiled = {} 
+
+    for location in locations:
+        dict_key = str(location.location_id)        
+        json_compiled[dict_key] = {}
+        json_compiled[dict_key]['lat'] = location.latitude
+        json_compiled[dict_key]['lng'] = location.longitude
+        json_compiled[dict_key]['desc'] = location.location_description
+        json_compiled[dict_key]['id'] = location.location_id
+
     # actors = Movie_actor.query.filter_by(movie_id=movie_id).all()
     # print "Actor: ", actors
     # director_obj = Director.query.filter_by(movie.director_id=director.director_id).all()
     # print "Director: ", director_obj
 
-    return render_template("movie_detail.html", movie=movie, locations=locations)
+    return render_template("movie_detail.html", movie=movie, film_locations=json_compiled)
 ##############################################################################
 # Helper functions
 

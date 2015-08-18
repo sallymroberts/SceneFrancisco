@@ -8,14 +8,27 @@
 <p>
 Production Company: {{ movie.production_company }}<br>
 
+{% if movie.movie_distributor %}
+Distributor: {{ movie.movie_distributor }}<br>
+{% endif %}
+
+{% if movie.director_rel.director_name %}
+Director: {{ movie.director_rel.director_name }}<br>
+{% endif %}
+
 {% if movie.movie_writers %}
   Writer(s): {{ movie.movie_writers }}<br>
 {% endif %}
 
-{% if movie.movie_distributor %}
-Distributor: {{ movie.movie_distributor }}<br><br>
+{% if movie.actors %}
+  	Actor(s):
+  	{% for actor in movie.actors %}
+  		{{ actor.actor_name }} 
+	{% endfor %}
+	<br>
 {% endif %}
 
+<br>
 <a href="{{ movie.imdb_url }}" target="_blank">IMDB link</a>
 
 </p>

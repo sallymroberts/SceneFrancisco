@@ -239,11 +239,22 @@ def info_from_imdb_id(imdb_id):
         return [plot, genre, poster_img_url]
     else: 
         return []
+
+def fix_image_url():
+    """Update the movie table with null image_url if value is "N/A" 
+    """  
+
+    mov_obj = Movie.query.filter_by(image_url="N/A").all() 
+
+    for mov in mov_obj:
+        mov.image_url = None  
+        db.session.commit()
            
 if __name__ == "__main__":
     connect_to_db(app)
 
-    get_movie_info()
+    fix_image_url()
+    # get_movie_info()
 
     # print info_from_imdb_id("tt1855110")
     # print "imdb id invalid: ", info_from_imdb_id("invalid")

@@ -45,17 +45,45 @@ def movie_detail(movie_id):
     movie = Movie.query.filter_by(movie_id=movie_id).one()
     locations = Movie_location.query.filter_by(movie_id=movie_id).all()
 
-    json_compiled = {} 
+    json_compiled = {}
+    sf_location_list = [] 
 
     for location in locations:
-        dict_key = str(location.location_id)        
-        json_compiled[dict_key] = {}
-        json_compiled[dict_key]['lat'] = location.latitude
-        json_compiled[dict_key]['lng'] = location.longitude
-        json_compiled[dict_key]['desc'] = location.location_description
-        json_compiled[dict_key]['id'] = location.location_id
+        dict_key = str(location.latitude) + str(location.longitude)
+        print "lat, long, dict_key: ", location.latitude, location.longitude, dict_key
+        
+        if location.latitude == 37.7749295 and location.longitude == -122.4194155:
+            sf_location_list.append(location.location_description)
 
-    return render_template("movie_detail.html", movie=movie, film_locations=json_compiled)
+        elif dict_key in json_compiled:
+            print "Before json_compiled[dict_key]['desc']", json_compiled[dict_key]['desc']
+            json_compiled[dict_key]['desc'] += "; " + location.location_description 
+            print "After json_compiled[dict_key]['desc']", json_compiled[dict_key]['desc']   
+
+        else:
+
+            json_compiled[dict_key] = {}
+            json_compiled[dict_key]['lat'] = location.latitude
+            json_compiled[dict_key]['lng'] = location.longitude
+            json_compiled[dict_key]['desc'] = location.location_description
+        # json_compiled[dict_key]['id'] = location.location_id
+
+    # print "json_compiled: ", json_compiled
+    # print "sf_location_list: ", sf_location_list
+    # 
+    #######################################################################
+    # json_compiled = {} 
+
+    # for location in locations:
+    #     dict_key = str(location.location_id)
+           
+    #     json_compiled[dict_key] = {}
+    #     json_compiled[dict_key]['lat'] = location.latitude
+    #     json_compiled[dict_key]['lng'] = location.longitude
+    #     json_compiled[dict_key]['desc'] = location.location_description
+    #     json_compiled[dict_key]['id'] = location.location_id
+
+    return render_template("movie_detail.html", movie=movie, film_locations=json_compiled, sf_location_list=sf_location_list)
 ##############################################################################
 # Helper functions
 

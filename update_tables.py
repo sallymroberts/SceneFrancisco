@@ -179,12 +179,76 @@ def fix_imdb_id(movie_title, correct_imdb_id):
     except NoResultFound:
         print "Title not found:", movie_title, correct_imdb_id
 
-       
+def get_movie_info():
+    """Update the movies table with plot, genre, movie poster image url: 
+    """
+
+    count = 0
+    mov_obj = Movie.query.all()
+    # import pdb; pdb.set_trace()
+        
+    for obj in mov_obj:
+
+        if obj.imdb_id and (not obj.genre or not obj.plot or not obj.image_url):
+
+            movie_info = info_from_imdb_id(obj.imdb_id)
+            if movie_info:
+                obj.plot = movie_info[0]
+                # print
+                # print 'obj.plot', obj.plot
+
+                obj.genre = movie_info[1]
+                # print 'obj.genre', obj.genre
+
+                obj.image_url = movie_info[2]
+                # print 'obj.image_url', obj.image_url
+                
+                db.session.add(obj)
+                sleep(0.5)
+                count += 1
+                if count > 50:
+                    db.session.commit() 
+                    count = 0
+
+    db.session.commit()
+def info_from_imdb_id(imdb_id):
+    """ return movie info for search string containing IMDB id
+
+        Args::
+            title (str): the imdb id search string
+
+        Returns:         
+            short plot description
+            movie genre
+            movie poster image url
+    """
+
+    pattern = 'http://www.omdbapi.com/?apikey=[REPLACE]&i={imdb_id}&plot=short&r=json'
+    url = pattern.format(imdb_id=urllib.quote(imdb_id))
+    r = requests.get(url)
+    results_dict = r.json()
+    response = results_dict['Response']
+    
+    if response:
+        if results_dict['Plot'] != 'N/A': 
+            plot = results_dict['Plot']
+        else:
+            plot = None
+        genre = results_dict['Genre'] 
+        poster_img_url = results_dict['Poster'] 
+        return [plot, genre, poster_img_url]
+    else: 
+        return []
+           
 if __name__ == "__main__":
     connect_to_db(app)
 
+    get_movie_info()
+
+    # print info_from_imdb_id("tt1855110")
+    # print "imdb id invalid: ", info_from_imdb_id("invalid")
     # fix_imdb_id("180", "tt1855110")
-    fix_imdb_ids()
+    # fix_imdb_ids()
 
     # get_one_latlng("Powell from Bush and Sutter")
     # get_one_latlng("Crissy Field")

@@ -28,6 +28,14 @@ Director: {{ movie.director_rel.director_name }}<br>
 	<br>
 {% endif %}
 
+{% if sf_location_list %}
+  <br>Filming locations not on map:<br>
+  {% for sf_loc in sf_location_list %}
+    {{ sf_loc }}
+    <br>
+  {% endfor %}
+{% endif %}
+
 <br>
 <a href="{{ movie.imdb_url }}" target="_blank">IMDB link</a>
 
@@ -56,7 +64,7 @@ function initialize() {
       mapOptions);
   
   var infoWindow = new google.maps.InfoWindow({
-      width: 100   
+      maxwidth: 200   
   }); 
   
   var locations = {{ film_locations|tojson|safe }};

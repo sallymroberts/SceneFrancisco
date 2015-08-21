@@ -1,7 +1,43 @@
 {% extends 'base.html' %}
+{% block subhead %} <img src="/static/images/golden-gate-bridge_GJsg_6du.jpg" height="150px"> {% endblock %}
+
 {% block content %}
 
-    <h2>Movies</h2>
+    <h4>Movies Filmed in San Francisco</h4>
+    <p>Display movies by genre</p>
+    <form action="movie_by_genre">
+      
+      <label>
+        Genre
+        <select name="genre">
+          <option value="Action">Action</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Animation">Animation</option>
+          <option value="Biography">Biography</option>
+          <option value="Comedy">Comedy</option>
+          <option value="Crime">Crime</option>
+          <option value="Documentary">Documentary</option>
+          <option value="Drama">Drama</option>
+          <option value="Family">Family</option>
+          <option value="Fantasy">Fantasy</option>
+          <option value="Film-Noir">Film Noir</option>
+          <option value="History">History</option>
+          <option value="Horror">Horror</option>
+          <option value="Music">Music</option>
+          <option value="Musical">Musical</option>
+          <option value="Mystery">Mystery</option>
+          <option value="Romance">Romance</option>
+          <option value="Sci-Fi">Sci-Fi</option>
+          <option value="Short">Short</option>
+          <option value="Sport">Sport</option>
+          <option value="Thriller">Thriller</option>
+          <option value="War">War</option>
+        </select>
+      </label>
+      <br>
+      <input type="submit">
+    </form>
+
     <ul>
       {% for movie in movies %}
           <li>

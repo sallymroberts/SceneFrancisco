@@ -9,6 +9,8 @@ from model import Movie, Movie_location, Movie_actor, Actor, Director, connect_t
 
 from sqlalchemy.orm.exc import NoResultFound
 
+import requests, time
+
 
 app = Flask(__name__)
 
@@ -45,20 +47,18 @@ def movie_detail(movie_id):
     movie = Movie.query.filter_by(movie_id=movie_id).one()
     locations = Movie_location.query.filter_by(movie_id=movie_id).all()
 
+
     json_compiled = {}
     sf_location_list = [] 
 
     for location in locations:
         dict_key = str(location.latitude) + str(location.longitude)
-        print "lat, long, dict_key: ", location.latitude, location.longitude, dict_key
         
         if location.latitude == 37.7749295 and location.longitude == -122.4194155:
             sf_location_list.append(location.location_description)
 
         elif dict_key in json_compiled:
-            print "Before json_compiled[dict_key]['desc']", json_compiled[dict_key]['desc']
             json_compiled[dict_key]['desc'] += "; " + location.location_description 
-            print "After json_compiled[dict_key]['desc']", json_compiled[dict_key]['desc']   
 
         else:
 

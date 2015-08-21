@@ -1,45 +1,76 @@
 {% extends 'base.html' %}
-
+{% block subhead %} {{ movie.movie_title }} ({{ movie.release_year }}) {% endblock %}
 {% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <p>
 
-<!-- <script src="/static/locations_map.js"></script> -->
+        {% if movie.image_url %}
+          <img src="/static/images/image{{ movie.movie_id }}.jpg" width="150">
+        {% endif %}
+        <br>
 
-<h3>{{ movie.movie_title }} ({{ movie.release_year }})</h3>
-<p>
-Production Company: {{ movie.production_company }}<br>
+      </div>
 
-{% if movie.movie_distributor %}
-Distributor: {{ movie.movie_distributor }}<br>
-{% endif %}
+      <div class="col-sm-5">       
+        <!-- Production Company: {{ movie.production_company }}<br>
 
-{% if movie.director_rel.director_name %}
-Director: {{ movie.director_rel.director_name }}<br>
-{% endif %}
+        {% if movie.movie_distributor %}
+        Distributor: {{ movie.movie_distributor }}<br>
+        {% endif %} -->
 
-{% if movie.movie_writers %}
-  Writer(s): {{ movie.movie_writers }}<br>
-{% endif %}
+        {% if movie.director_rel.director_name %}
+        Director: {{ movie.director_rel.director_name }}<br>
+        {% endif %}
 
-{% if movie.actors %}
-  	Actor(s):
-  	{% for actor in movie.actors %}
-  		{{ actor.actor_name }} 
-	{% endfor %}
-	<br>
-{% endif %}
+        {% if movie.movie_writers %}
+          Writer(s): {{ movie.movie_writers }}<br>
+        {% endif %}
 
-{% if sf_location_list %}
-  <br>Filming locations not on map:<br>
-  {% for sf_loc in sf_location_list %}
-    {{ sf_loc }}
-    <br>
-  {% endfor %}
-{% endif %}
+        {% if movie.actors %}
+          	Actor(s):
+          	{% for actor in movie.actors %}
+          		{{ actor.actor_name }} 
+        	{% endfor %}
+        	<br>
+        {% endif %}
 
-<br>
-<a href="{{ movie.imdb_url }}" target="_blank">IMDB link</a>
+        <br>
+        {% if movie.genre %}
+          Genre: {{ movie.genre }}<br>
+        {% endif %}
 
-</p>
+        <br>
+        {% if movie.plot %}
+          Plot: {{ movie.plot }}<br>
+        {% endif %}
+
+        <br>
+        {% if movie.imdb_url %}
+        <a href="{{ movie.imdb_url }}" target="_blank">IMDB link</a>
+        {% endif %}
+        
+
+      </div>
+      
+      <div class="col-sm-4">  
+        {% if sf_location_list %}
+          Filming locations not on map:<br><br>
+          {% for sf_loc in sf_location_list %}
+            {{ sf_loc }}
+            <br>
+          {% endfor %}
+        {% endif %}
+
+        
+
+        </p>
+      </div>
+
+    </div>
+
+  </div>
 
 {% endblock %}
 

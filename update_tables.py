@@ -10,6 +10,8 @@ from time import sleep
 
 import requests
 import urllib
+import shutil
+import os
 
 def load_imdb_id():
     """ load IMDB id and IMDB url in Movies table
@@ -249,11 +251,34 @@ def fix_image_url():
     for mov in mov_obj:
         mov.image_url = None  
         db.session.commit()
-           
+
+def create_movie_image_files():
+    """Retrieve movie images using imdb url and 
+    store in image folder"""           
+
+    movies = Movie.query.all()
+
+    for mov in movies:
+        if mov.image_url:
+            path = "./static/images/"
+
+
+            filename = "image%s.jpg" % mov.movie_id
+            filepath = os.path.join(path, filename)
+            response = requests.get(mov.image_url, stream=True)
+            if response.status_code == 200:
+                print response.raw
+                with open(filepath, 'wb') as f:
+                    response.raw.decode_content = True
+                    print response.raw
+                    shutil.copyfileobj(response.raw, f)      
+        
+
 if __name__ == "__main__":
     connect_to_db(app)
 
-    fix_image_url()
+    create_movie_image_files()
+    # fix_image_url()
     # get_movie_info()
 
     # print info_from_imdb_id("tt1855110")

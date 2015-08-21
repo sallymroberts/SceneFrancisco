@@ -2,6 +2,30 @@
 /*Sitewide*/
 /*--------------------------------*/
 
+#page_head {
+    font: 40px arial, sans-serif;
+    font-weight: bold;
+    color: white;
+    margin: 0.5em
+}
+
+#sub-heading {
+    font: 25px arial, sans-serif;
+    font-weight: bold;
+    color: white;
+    margin: 0.5em;
+}
+
+#page_head_img {
+    margin: 0.5em;
+    height: 150px;
+}
+
+#poster_img {
+    margin: 0.25em;
+    height: 225px;
+}
+
 #content {
     font: 15px arial, sans-serif;
     font-weight: bold;

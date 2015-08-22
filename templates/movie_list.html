@@ -9,10 +9,11 @@
   <div class="container">
     <div class="col-sm-3">
       <p>Display movies by genre</p>  
-        <form action="movie_by_genre">        
+        <form action="/movies">        
           <label>
             Genre
             <select name="genre">
+              <option value="All">All</option>
               <option value="Action">Action</option>
               <option value="Adventure">Adventure</option>
               <option value="Animation">Animation</option>
@@ -42,18 +43,29 @@
         </form>
       </div>
 
-      <div class="col-sm-6">
-        <ul>
-          {% for movie in movies %}
-              <li>
-                  {{ movie.movie_title }} ({{ movie.release_year}})
-                  {% if movie.locations %}
-                    <a href="/movies/{{ movie.movie_id }}">Filming map</a>
-                  {% endif %}   
-                  <a href="{{ movie.imdb_url }}" target="_blank">IMDB</a>
-              </li>
-          {% endfor %}
-        </ul>
+      <div class="col-sm-9">
+        <table class="table table-condensed">
+          <thead>
+            <tbody>
+            {% for movie in movies %}
+            <tr>
+              <td>{{ movie.movie_title }} ({{ movie.release_year}})</td>
+              <td>
+                {% if movie.locations %}
+                  <a href="/movies/{{ movie.movie_id }}">Map</a>
+                {% endif %}
+              </td>   
+              <td><a href="{{ movie.imdb_url }}" target="_blank">IMDB</a></td>
+              <td>
+                {% if movie.genre %}
+                  {{ movie.genre }}
+                {% endif %}
+              </td>   
+            </tr>
+            {% endfor %}
+            </tbody> 
+          </thead>
+        </table>
       </div>
   </div>
 

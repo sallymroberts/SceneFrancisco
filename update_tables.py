@@ -272,12 +272,22 @@ def create_movie_image_files():
                     response.raw.decode_content = True
                     print response.raw
                     shutil.copyfileobj(response.raw, f)      
-        
+def fix_title_the():
+    """Update the movie table for titles beginning with 'The' 
+    """  
+
+    movies = Movie.query.filter_by(movie.movie_title.like("The%").all()
+
+    for mov in movies:
+        mov.movie_title = mov.movie_title[4:] + ", The"
+        print mov.movie_title
+        # db.session.commit()        
 
 if __name__ == "__main__":
     connect_to_db(app)
 
-    create_movie_image_files()
+    fix_title_the()
+    # create_movie_image_files()
     # fix_image_url()
     # get_movie_info()
 

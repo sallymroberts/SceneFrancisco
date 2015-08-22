@@ -35,8 +35,19 @@ def index():
 @app.route('/movies')
 def movie_list():
     """Show list of movies."""
+    
+    
+    
+    if 'genre' in request.args:
+        genre = request.args['genre']
+    else:
+        genre = None
 
-    movies = Movie.query.order_by(Movie.movie_title).all()
+    if genre is None or genre == 'All':
+        movies = Movie.query.order_by(Movie.movie_title).all()
+        
+    else:
+        movies = Movie.query.filter_by(genre=genre).order_by(Movie.movie_title).all()
 
     return render_template("movie_list.html", movies=movies)
 

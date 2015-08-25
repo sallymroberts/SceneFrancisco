@@ -181,6 +181,39 @@ def fix_imdb_id(movie_title, correct_imdb_id):
     except NoResultFound:
         print "Title not found:", movie_title, correct_imdb_id
 
+def fix_movie_titles():
+    """Update the movie table from a dictionary of original titles and correct titles: 
+    """
+    
+    correct_title_dict = {
+        "D.O.A":"D.O.A.",
+        "Doctor Doolittle":"Doctor Dolittle",
+        "Dr. Doolittle 2":"Dr. Dolittle 2",
+        "Forty Days and Forty Nights":"40 Days and 40 Nights",
+        "Mother":"Mother (II)",
+        "Panther":"Panther (I)",
+        "Swing":"Swing (I)",
+        "Terminator - Genisys":"Terminator Genisys",
+        "Bridge, The":"Bridge (I), The",
+        "Competiton, The":"Competition, The",
+        "Fog of War, The":"Fog of War: Eleven Lessons, The",
+        "Twisted":"Twisted (I)"
+    }
+    
+    for title in correct_title_dict:
+        fix_title(title, correct_title_dict[title])
+
+def fix_title(bad_title, correct_title):
+    """Update the movie table with correct movie_title: 
+    """  
+    try: 
+        movie_obj = Movie.query.filter_by(movie_title=bad_title).one()    
+        movie_obj.movie_title = correct_title
+        print "Title changed: ", bad_title, correct_title
+        db.session.commit()
+    except NoResultFound:
+        print "Title not found:", bad_title
+
 def get_movie_info():
     """Update the movies table with plot, genre, movie poster image url: 
     """
@@ -273,20 +306,29 @@ def create_movie_image_files():
                     print response.raw
                     shutil.copyfileobj(response.raw, f)      
 def fix_title_the():
-    """Update the movie table for titles beginning with 'The' 
+    """Update the movie table for titles beginning with 'The ' or 'A '
     """  
 
-    movies = Movie.query.filter_by(movie.movie_title.like("The%").all()
-
+    # movies = Movie.query.filter_by(movie_title.like("The%")).all()
+    movies = Movie.query.all()
+    
     for mov in movies:
-        mov.movie_title = mov.movie_title[4:] + ", The"
-        print mov.movie_title
-        # db.session.commit()        
+        if mov.movie_title[0:4] == 'The ': 
+            mov.movie_title = mov.movie_title[4:] + ", The" 
+            print "Title changed to: ", mov.movie_title
+            db.session.commit() 
+
+        elif mov.movie_title[0:2] == 'A ': 
+            mov.movie_title = mov.movie_title[2:] + ", A"
+            print "Title changed to: ", mov.movie_title
+            db.session.commit()      
 
 if __name__ == "__main__":
     connect_to_db(app)
 
     fix_title_the()
+    # fix_title("D.O.A", "D.O.A.")
+    # fix_title_the()
     # create_movie_image_files()
     # fix_image_url()
     # get_movie_info()

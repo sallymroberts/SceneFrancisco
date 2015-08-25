@@ -26,30 +26,38 @@ app.jinja_env.undefined = StrictUndefined
 def index():
     """Homepage."""
 
-    # if session["user_id"]:
-    #     pass
-    # else:
-    #     session["user_id"] = None
     return render_template("homepage.html")
 
 @app.route('/movies')
 def movie_list():
-    """Show list of movies."""
+    """Show list of movies. 
+    If user selected genre: subset by genre.
+    Else: If user entered title search, subset by partial/full title
+    Else: display entire movie list.
+    """
     
-    
-    
+    user_genre = None
+    title_search = None
+
     if 'genre' in request.args:
-        genre = request.args['genre']
-    else:
-        genre = None
+        user_genre = request.args['genre']
+        if user_genre == 'All':
+            movies = Movie.query.order_by(Movie.movie_title).all()
+        else:
+            movies = Movie.query.filter(Movie.genre.like("%" + user_genre + "%")).all()
 
-    if genre is None or genre == 'All':
+    elif 'title_search' in request.args:
+        title_search = request.args['title_search']
+        if title_search[0:4] == "The ":
+            title_search = title_search[4:]
+        elif title_search[0:2] == "A ":
+            title_search = title_search[2:]
+        movies = Movie.query.filter(Movie.movie_title.ilike("%" + title_search + "%")).all()
+  
+    else: 
         movies = Movie.query.order_by(Movie.movie_title).all()
-        
-    else:
-        movies = Movie.query.filter_by(genre=genre).order_by(Movie.movie_title).all()
 
-    return render_template("movie_list.html", movies=movies)
+    return render_template("movie_list.html", movies=movies, genre=user_genre)
 
 @app.route('/movies/<int:movie_id>')
 def movie_detail(movie_id):
@@ -57,7 +65,6 @@ def movie_detail(movie_id):
 
     movie = Movie.query.filter_by(movie_id=movie_id).one()
     locations = Movie_location.query.filter_by(movie_id=movie_id).all()
-
 
     json_compiled = {}
     sf_location_list = [] 

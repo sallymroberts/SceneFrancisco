@@ -76,7 +76,8 @@ def movie_detail(movie_id):
             sf_location_list.append(location.location_description)
 
         elif dict_key in json_compiled:
-            json_compiled[dict_key]['desc'] += "; " + location.location_description 
+            # json_compiled[dict_key]['desc'] += "; " + location.location_description 
+            json_compiled[dict_key]['desc'] += "; <p>" + location.location_description
 
         else:
 

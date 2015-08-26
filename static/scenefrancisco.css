@@ -1,0 +1,126 @@
+/*--------------------------------*/
+/*Sitewide*/
+/*--------------------------------*/
+
+tbody a { color: blue;
+
+}
+
+tbody a:hover { color: green;
+
+}
+
+/* Movie title on movie list page */
+.movie_title { color: #6F1402;
+                font-size: 14px;
+                font-family: 'merriweather', sans-serif;
+
+}
+
+/* Release year on movie list page */
+.release_year { color: #6F1402;
+                font-size: 12px;
+                font-family: 'merriweather', sans-serif;
+
+}
+#homepage_main {
+    background: url(/static/images/03307_sfnighttimeskyline_672x420.jpg);
+    /*background-size: 100%
+    background-repeat: no-repeat;*/
+}
+
+/* Movie List page heading div */
+#list_header { height: 250px;
+                background-image: url("/static/images/scenefranciscoheader_crop.jpg");
+                width: 100%;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-color: #ccc;
+
+}
+
+/* Movie List page heading title paragraph */
+#list_page_head {
+    font-family: 'merriweather', sans-serif;
+    font-size: 40px; 
+    font-weight: bold;
+    text-align: center;
+    color: #6F1402;
+    background-color: #FFF4DF;
+    width: 400px;
+    margin: 5% 35% 0% 35%;
+}
+
+/* Movie List page heading sub-title paragraph */
+#list_page_subhead {
+    font: 20px Georgia, serif;
+    /*font-weight: bold;*/
+    text-align: center;
+    color: #C12C16;
+    background-color: #FFF0C9;
+    width: 400px;
+    margin: 0.0% 35% 15% 35%;
+}
+
+/* Movie detail page heading div */
+#detail_page_head {
+    font: 35px Georgia, serif;
+    font-weight: bold;
+    text-align: center;
+    color: #C12C16;
+    background-color: #FFF0C9;
+    width: 100%;
+    margin: auto;
+}
+
+#poster_img {
+    margin: 0.25em;
+    height: 225px;
+}
+
+#content {
+    font: 15px arial, sans-serif;
+    font-weight: bold;
+    color: black;
+}
+
+a {
+    color: 6F1402;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+a:active {
+    text-decoration: none;
+    color: #fff;
+}
+
+/*--------------------------------*/
+/*Homepage*/
+/*--------------------------------*/
+
+/*#bearlink {
+    padding: 200px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 100;
+    font-size: 36px;
+    color: #fff;
+}*/
+
+/*--------------------------------*/
+/*Maps*/
+/*--------------------------------*/
+
+#single-map {
+    width: 100%;
+    height: 760px;
+}
+
+.window-content {
+    color: #04162b;
+    width: 150px;
+}

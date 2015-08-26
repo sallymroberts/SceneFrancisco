@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block subhead %} 
 
-<img id="page_head_img" src="/static/images/golden-gate-bridge-and-san-francisco-bay-area-city-skyline-panorama-1600x549.jpg">
-<!-- <h4>Movies Filmed in San Francisco</h4> -->
+<div id="list_header">
+  <br><br><br>
+<p id="list_page_head">Scene Francisco</p>
+<p id="list_page_subhead">Movies Filmed in San Francisco</p>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -42,7 +45,7 @@
 
       <form action="/movies">       
         <br>
-        <input type="text" name="title_search" id="title_search" size="50">
+        <input type="text" name="title_search" id="title_search" placeholder="Search for your favorite movie by title" size="50">
         <br><br>
           <input type="submit" value="Search for title">
       </form>
@@ -56,23 +59,30 @@
             {% for movie in movies %}
             <tr>
               
-              <td>{{ movie.movie_title }} ({{ movie.release_year}})</td>
+              <td>
+                <span class="movie_title"> {{ movie.movie_title }} 
+                </span>
+                <span class="release_year"> ({{ movie.release_year}})
+                </span>
+              </td>
               
               <td>
                 {% if movie.locations %}
-                  <a href="/movies/{{ movie.movie_id }}">Map</a>
+                  <a class="map_link" href="/movies/{{ movie.movie_id }}">Map</a>
                 {% endif %}
               </td>   
               
               <td>
                 {% if movie.imdb_url %}  
-                  <a href="{{ movie.imdb_url }}" target="_blank">IMDB</a>
+                  <a class="imdb_link" href="{{ movie.imdb_url }}" target="_blank">IMDB</a>
                 {% endif %}
               </td>
               
               <td>
                 {% if movie.genre %}
-                  {{ movie.genre }}
+                  <span class="genre_list">
+                    {{ movie.genre }}
+                  </span>
                 {% endif %}
               </td>
 

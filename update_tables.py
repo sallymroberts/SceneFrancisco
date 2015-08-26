@@ -70,23 +70,16 @@ def imdb_id_from_title(title):
 def get_latlng():
     """Update the movie_locations table with latitude and longitude: 
     """
-    # g = geocoder.google('555 Market St., San Francisco, CA')
 
     count = 0
     loc_obj = Movie_location.query.all()
-    # import pdb; pdb.set_trace()
         
     for obj in loc_obj:
 
         if not obj.latitude or not obj.longitude:
             location_SF = obj.location_description +', San Francisco, CA'
-            # print "Loc desc, loc id, movie id: ", obj.location_description, obj.location_id, obj.movie_id            
-            # print "obj.latitude before: ", obj.latitude
-            # print "obj.longitude before: ", obj.longitude
-            # print
-            # break
             g = geocoder.google(location_SF)
-            # print "Loc desc, loc id, movie id: ", obj.location_description, obj.location_id, obj.movie_id
+
             if not g.latlng: 
                 print g
                 print "No latitude / longitude retrieved, stop program"
@@ -99,23 +92,21 @@ def get_latlng():
                 db.session.add(obj)
                 sleep(0.5)
 
-
                 count += 1
                 if count > 200:
                     db.session.commit() 
                     count = 0
 
     db.session.commit()
+
 def get_one_latlng(location_description):
     """Retrieve latitude and longitude for one location: 
     """
-    # g = geocoder.google('555 Market St., San Francisco, CA')
-
     
     location_SF = location_description + ', San Francisco, CA'
             
     g = geocoder.google(location_SF)
-    # print "Loc desc, loc id, movie id: ", obj.location_description, obj.location_id, obj.movie_id
+
     if not g.latlng: 
         print g
         print "No latitude / longitude retrieved"
@@ -220,7 +211,6 @@ def get_movie_info():
 
     count = 0
     mov_obj = Movie.query.all()
-    # import pdb; pdb.set_trace()
         
     for obj in mov_obj:
 
@@ -229,23 +219,18 @@ def get_movie_info():
             movie_info = info_from_imdb_id(obj.imdb_id)
             if movie_info:
                 obj.plot = movie_info[0]
-                # print
-                # print 'obj.plot', obj.plot
-
                 obj.genre = movie_info[1]
-                # print 'obj.genre', obj.genre
-
-                obj.image_url = movie_info[2]
-                # print 'obj.image_url', obj.image_url
-                
+                obj.image_url = movie_info[2]                
                 db.session.add(obj)
                 sleep(0.5)
                 count += 1
+
                 if count > 50:
                     db.session.commit() 
                     count = 0
 
     db.session.commit()
+
 def info_from_imdb_id(imdb_id):
     """ return movie info for search string containing IMDB id
 
@@ -304,7 +289,8 @@ def create_movie_image_files():
                 with open(filepath, 'wb') as f:
                     response.raw.decode_content = True
                     print response.raw
-                    shutil.copyfileobj(response.raw, f)      
+                    shutil.copyfileobj(response.raw, f) 
+
 def fix_title_the():
     """Update the movie table for titles beginning with 'The ' or 'A '
     """  
@@ -326,7 +312,11 @@ def fix_title_the():
 if __name__ == "__main__":
     connect_to_db(app)
 
-    fix_title_the()
+# NOTE: The functions in this file were tested and run one at a time
+# to update data in the Movies and Movie_locations tables using the 
+# commented-out statements below, which were saved for future reference 
+
+    # fix_title_the()
     # fix_title("D.O.A", "D.O.A.")
     # fix_title_the()
     # create_movie_image_files()

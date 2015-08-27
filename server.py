@@ -2,7 +2,7 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, redirect, request, flash, session
+from flask import Flask, render_template, redirect, request, flash, session, url_for
 from flask_debugtoolbar import DebugToolbarExtension
 
 from model import Movie, Movie_location, Movie_actor, Actor, Director, connect_to_db, db
@@ -21,16 +21,9 @@ app.secret_key = "ABC"
 # This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
 
-
 @app.route('/')
-def index():
-    """Homepage."""
-
-    return render_template("homepage.html")
-
-@app.route('/movies')
 def movie_list():
-    """Show list of movies. 
+    """Show list of movies on home page. 
     If user selected genre: subset by genre.
     Else: If user entered title search, subset by partial/full title
     Else: display entire movie list.
@@ -59,7 +52,7 @@ def movie_list():
 
     return render_template("movie_list.html", movies=movies, genre=user_genre)
 
-@app.route('/movies/<int:movie_id>')
+@app.route('/<int:movie_id>')
 def movie_detail(movie_id):
     """Show movie detail."""
 

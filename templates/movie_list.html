@@ -11,10 +11,10 @@
 {% block content %}
   <div class="container">
     <div class="col-sm-4"> 
-      <form id="genre_search" action="/movies">        
+      <form id="genre_head" action="/">        
         <label for="genre">Subset by Genre:</label>
         <br>
-          <select name="genre" id="genre">
+          <select name="genre" id="genre_list">
             <option value="All">All</option>
             <option value="Action">Action</option>
             <option value="Adventure">Adventure</option>
@@ -43,11 +43,11 @@
 
       <br><br>
 
-      <form action="/movies">       
+      <form action="/">       
         <br>
         <input type="text" name="title_search" id="title_search" placeholder="Search for your favorite movie by title" size="50">
         <br><br>
-          <input type="submit" value="Search for title">
+          <input type="submit" class="submit_button"value="Search for title">
       </form>
 
       </div>
@@ -68,7 +68,7 @@
               
               <td>
                 {% if movie.locations %}
-                  <a class="map_link" href="/movies/{{ movie.movie_id }}">Map</a>
+                  <a class="map_link" href="/{{ movie.movie_id }}">Map</a>
                 {% endif %}
               </td>   
               
@@ -80,7 +80,7 @@
               
               <td>
                 {% if movie.genre %}
-                  <span class="genre_list">
+                  <span class="genres_for_a_movie">
                     {{ movie.genre }}
                   </span>
                 {% endif %}

@@ -82,30 +82,35 @@ tbody a:hover { color: #6F1402;
 /* Movie List page heading title paragraph */
 #list_page_head {
     font-family: 'merriweather', sans-serif;
-    font-size: 40px; 
-    font-weight: bold;
+    font-size: 75px; 
+    font-weight: 900;
     text-align: center;
-    /*color: #FFF0C9;
-    text-shadow: 3px 3px #6F1402;*/
-    color: #6F1402;
-    text-shadow: 3px 3px #FFF0C9;
-   /* background-color: #FFF4DF;*/
-    width: 400px;
-    margin: 5% 35% 0% 20%;
+    color: #961E1E;
+
+    /* sharper glow */
+    text-shadow: 1px 0px 0px #FFF0C9, 1px 1px 0px #FFF0C9, 0px 1px 0px #FFF0C9, 
+    -1px 1px 0px #FFF0C9, -1px 0px 0px #FFF0C9, -1px -1px 0px #FFF0C9, 
+    0px -1px 0px #FFF0C9, 1px -1px 0px #FFF0C9, 1px 4px 5px #aeaeae;
+
+    width: 650px;
+    margin: 0.0% 32.0% 0.0% 32.0%;
 }
 
 /* Movie List page heading sub-title paragraph */
 #list_page_subhead {
-    font: 20px 'merriweather', serif;
-    font-weight: bold;
+    font-family: 'merriweather', serif;
+    font-size: 37px; 
+    font-weight: 900;
     text-align: center;
-    /*color: #FFF0C9;
-    text-shadow: 3px 3px #6F1402;*/
-    color: #6F1402;
-    text-shadow: 1.5px 1.5px #FFF0C9;
-    /*background-color: #FFF0C9;*/
-    width: 400px;
-    margin: 0.0% 35% 15% 20%;
+    color: #BF2517;
+
+    /* sharper glow */
+    text-shadow: 1px 0px 0px #FFF0C9, 1px 1px 0px #FFF0C9, 0px 1px 0px #FFF0C9, 
+    -1px 1px 0px #FFF0C9, -1px 0px 0px #FFF0C9, -1px -1px 0px #FFF0C9, 
+    0px -1px 0px #FFF0C9, 1px -1px 0px #FFF0C9, 1px 4px 5px #aeaeae;
+   
+    width: 650px;
+    margin: 0.0% 32.0% 0.0% 32.0%;
 }
 
 /*****************************************/
@@ -119,7 +124,8 @@ tbody a:hover { color: #6F1402;
     color: #C12C16;
     /*background-color: #FFF0C9;*/
     width: 100%;
-    margin: auto;
+    margin: 0.0% 0.0% 0.0% 30.5%;
+    /*margin: auto;*/
 }
 
 /* Movie detail page heading release year */

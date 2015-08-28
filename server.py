@@ -42,16 +42,13 @@ def movie_list():
                 .all()
 
     elif 'title_search' in request.args:
-        print "request.args['title_search']", request.args['title_search']
         title_search = request.args['title_search']
-        print "title_search: ", title_search
         
         if title_search[0:4] in ("The ", "the "):    
             title_search = title_search[4:]
-            print "title_search: ", title_search
         elif title_search[0:2] in ("A ", "a "):
             title_search = title_search[2:]
-            print "title_search: ", title_search
+
         movies = Movie.query.filter(Movie.movie_title.ilike("%" + title_search + "%"))\
         .order_by(Movie.movie_title)\
         .all()
@@ -59,13 +56,27 @@ def movie_list():
     else: 
         movies = Movie.query.order_by(Movie.movie_title).all()
 
-    return render_template("movie_list.html", movies=movies, genre=user_genre)
+    return render_template("movie_list.html", \
+                    movies=movies, \
+                    genre=user_genre)
 
 @app.route('/<int:movie_id>')
 def movie_detail(movie_id):
     """Show movie detail."""
 
     movie = Movie.query.filter_by(movie_id=movie_id).one()
+
+    print "Original title: ", movie.movie_title 
+    
+    if movie.movie_title[-5:] in (", The", ", the"):   
+        title = "The " + movie.movie_title[:-5]
+    elif movie.movie_title[-3:] in (", A", ", a"):
+        title = "A " + movie.movie_title[:-3]
+    else: 
+        title = movie.movie_title
+
+    print "title: ", title
+        
     locations = Movie_location.query.filter_by(movie_id=movie_id).all()
 
     json_compiled = {}
@@ -77,8 +88,7 @@ def movie_detail(movie_id):
         if location.latitude == 37.7749295 and location.longitude == -122.4194155:
             sf_location_list.append(location.location_description)
 
-        elif dict_key in json_compiled:
-            # json_compiled[dict_key]['desc'] += "; " + location.location_description 
+        elif dict_key in json_compiled: 
             json_compiled[dict_key]['desc'] += "; <p>" + location.location_description
 
         else:
@@ -88,7 +98,11 @@ def movie_detail(movie_id):
             json_compiled[dict_key]['lng'] = location.longitude
             json_compiled[dict_key]['desc'] = location.location_description
 
-    return render_template("movie_detail.html", movie=movie, film_locations=json_compiled, sf_location_list=sf_location_list)
+    return render_template("movie_detail.html",\
+                    movie=movie, \
+                    film_locations=json_compiled, \
+                    sf_location_list=sf_location_list, \
+                    title=title)
 ##############################################################################
 # Helper functions
 

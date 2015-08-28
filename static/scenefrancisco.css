@@ -2,15 +2,8 @@
 /*Sitewide*/
 /*--------------------------------*/
 
-tbody a { color: blue;
-
-}
-
-tbody a:hover { color: green;
-
-}
-
-/* Styles for Search and Subset input on movie list page */
+/*********************************************************/
+/* Styles for search, subset, and refresh input movie list page */
 
 /* Genre pulldown heading on movie list page */
 #genre_head { color: #6F1402;
@@ -18,8 +11,8 @@ tbody a:hover { color: green;
                 font-family: 'merriweather-sans', sans-serif;
 }
 
-/* Genre pulldown list on movie list page */
-#genre_list { color: #C12C16;
+/* Genre selection list on movie list page */
+#genre { color: #C12C16;
                 font-size: 14px;
                 font-family: 'merriweather-sans', sans-serif;
 }
@@ -36,6 +29,7 @@ tbody a:hover { color: green;
                 font-family: 'merriweather-sans', sans-serif;
 }
 
+/***************************************************/
 /* Styles for text for columns in movie list table */
 /* Movie title column on movie list page */
 .movie_title { color: #6F1402;
@@ -55,6 +49,10 @@ tbody a:hover { color: green;
 .map_link { color: #EE5C21;
                 font-size: 14px;
                 font-family: 'merriweather-sans', serif;
+}
+
+tbody a:hover { color: #6F1402;
+
 }
 
 /* IMDB link column on movie list page */
@@ -87,29 +85,50 @@ tbody a:hover { color: green;
     font-size: 40px; 
     font-weight: bold;
     text-align: center;
+    /*color: #FFF0C9;
+    text-shadow: 3px 3px #6F1402;*/
     color: #6F1402;
-    background-color: #FFF4DF;
+    text-shadow: 3px 3px #FFF0C9;
+   /* background-color: #FFF4DF;*/
     width: 400px;
-    margin: 5% 35% 0% 35%;
+    margin: 5% 35% 0% 20%;
 }
 
 /* Movie List page heading sub-title paragraph */
 #list_page_subhead {
     font: 20px Georgia, serif;
+    font-weight: bold;
     text-align: center;
-    color: #C12C16;
-    background-color: #FFF0C9;
+    /*color: #FFF0C9;
+    text-shadow: 3px 3px #6F1402;*/
+    color: #6F1402;
+    text-shadow: 1.5px 1.5px #FFF0C9;
+    /*background-color: #FFF0C9;*/
     width: 400px;
-    margin: 0.0% 35% 15% 35%;
+    margin: 0.0% 35% 15% 20%;
 }
 
-/* Movie detail page heading div */
-#detail_page_head {
+/*****************************************/
+/* Movie detail page heading styling     */
+
+/* Movie detail page heading movie title */
+#detail_page_title {
     font: 35px Georgia, serif;
     font-weight: bold;
     text-align: center;
     color: #C12C16;
-    background-color: #FFF0C9;
+    /*background-color: #FFF0C9;*/
+    width: 100%;
+    margin: auto;
+}
+
+/* Movie detail page heading release year */
+#detail_page_release_year {
+    font: 25px Georgia, serif;
+    font-weight: normal;
+    text-align: center;
+    color: #C12C16;
+    /*background-color: #FFF0C9;*/
     width: 100%;
     margin: auto;
 }
@@ -119,13 +138,27 @@ tbody a:hover { color: green;
     height: 225px;
 }
 
+/**********************************************/
+/* Movie detail page text content styling     */
+
+.movie_detail_label { color: #6F1402;
+                font-size: 14px;
+                font-weight: bold;
+                font-family: 'merriweather-sans', sans-serif;
+}
+
+.movie_detail_content { color: #C12C16;
+                font-size: 14px;
+                font-family: 'merriweather-sans', sans-serif;
+}
+
 #content {
     font: 15px arial, sans-serif;
     font-weight: bold;
     color: black;
 }
 
-a {
+/*a {
     color: 6F1402;
     text-decoration: none;
 }
@@ -138,19 +171,8 @@ a:hover {
 a:active {
     text-decoration: none;
     color: #fff;
-}
-
-/*--------------------------------*/
-/*Homepage*/
-/*--------------------------------*/
-
-/*#bearlink {
-    padding: 200px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 100;
-    font-size: 36px;
-    color: #fff;
 }*/
+
 
 /*--------------------------------*/
 /*Maps*/

@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% block subhead %} 
-  <div id="detail_page_head">
-    {{ movie.movie_title }} ({{ movie.release_year }})
-  </div>
+  <span id="detail_page_title"> {{ movie.movie_title }} </span> 
+  <span id="detail_page_release_year"> ({{ movie.release_year }}) </span>
 {% endblock %}
 
 {% block content %}
@@ -21,44 +20,53 @@
       <div class="col-sm-5">       
 
         {% if movie.director_rel.director_name %}
-        Director: {{ movie.director_rel.director_name }}<br>
+        <span class="movie_detail_label">Director: </span> 
+        <span class="movie_detail_content"> {{ movie.director_rel.director_name }}</span>
+        <br>
         {% endif %}
 
         {% if movie.movie_writers %}
-          Writer(s): {{ movie.movie_writers }}<br>
+          <span class="movie_detail_label">Writer(s): </span>
+          <span class="movie_detail_content"> {{ movie.movie_writers }}</span>
+          <br>
         {% endif %}
 
         {% if movie.actors %}
-          	Actor(s):
-          	{% for actor in movie.actors %}
+          	<span class="movie_detail_label">Actor(s): </span>
+          	<span class="movie_detail_content"> {% for actor in movie.actors %}
           		{{ actor.actor_name }} 
-        	{% endfor %}
+        	{% endfor %}</span>
         	<br>
         {% endif %}
 
         <br>
         {% if movie.genre %}
-          Genre: {{ movie.genre }}<br>
+          <span class="movie_detail_label">Genre: </span>
+          <span class="movie_detail_content"> {{ movie.genre }}</span>
+          <br>
         {% endif %}
 
         <br>
         {% if movie.plot %}
-          Plot: {{ movie.plot }}<br>
+          <span class="movie_detail_label">Plot:   </span>
+          <span class="movie_detail_content"> {{ movie.plot }} </span>
+          <br>
         {% endif %}
 
         <br>
         {% if movie.imdb_url %}
-          <a href="{{ movie.imdb_url }}" target="_blank">IMDB link</a>
+          <a class="imdb_link" href="{{ movie.imdb_url }}" target="_blank">IMDB link</a>
         {% endif %}
-        
+        <br><br>
 
       </div>
       
       <div class="col-sm-5">  
         {% if sf_location_list %}
-          Filming locations not on map:<br><br>
+          <span class="movie_detail_label">Filming locations not on map: </span>
+          <br><br>
           {% for sf_loc in sf_location_list %}
-            {{ sf_loc }}
+            <span class="movie_detail_content"> {{ sf_loc }} </span>
             <br>
           {% endfor %}
         {% endif %}

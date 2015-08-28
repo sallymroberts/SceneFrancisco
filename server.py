@@ -37,7 +37,9 @@ def movie_list():
         if user_genre == 'All':
             movies = Movie.query.order_by(Movie.movie_title).all()
         else:
-            movies = Movie.query.filter(Movie.genre.like("%" + user_genre + "%")).all()
+            movies = Movie.query.filter(Movie.genre.like("%" + user_genre + "%"))\
+                .order_by(Movie.movie_title)\
+                .all()
 
     elif 'title_search' in request.args:
         title_search = request.args['title_search']
@@ -45,7 +47,9 @@ def movie_list():
             title_search = title_search[4:]
         elif title_search[0:2] == "A ":
             title_search = title_search[2:]
-        movies = Movie.query.filter(Movie.movie_title.ilike("%" + title_search + "%")).all()
+        movies = Movie.query.filter(Movie.movie_title.ilike("%" + title_search + "%"))\
+        .order_by(Movie.movie_title)\
+        .all()
   
     else: 
         movies = Movie.query.order_by(Movie.movie_title).all()

@@ -181,6 +181,7 @@ def fix_movie_titles():
         "Doctor Doolittle":"Doctor Dolittle",
         "Dr. Doolittle 2":"Dr. Dolittle 2",
         "Forty Days and Forty Nights":"40 Days and 40 Nights",
+        "God is a Communist?* (show me heart universe)":"God is a Communist!?* (show me heart universe)",
         "Mother":"Mother (II)",
         "Panther":"Panther (I)",
         "Swing":"Swing (I)",
@@ -204,6 +205,44 @@ def fix_title(bad_title, correct_title):
         db.session.commit()
     except NoResultFound:
         print "Title not found:", bad_title
+
+def fix_release_years():
+    """Update the movie table from a dictionary of original titles and correct release years: 
+    """
+    
+    correct_release_year_dict = {
+        "Ant-Man":2015,
+        "Big Sur":2013,
+        "Dim Sum: A Little Bit of Heart":1985,
+        "Dream for an Insomniac":1996,
+        "God is a Communist!?* (Show me heart universe)":2013,
+        "Heart and Souls":1993,
+        "Hemingway & Gellhorn":2012,
+        "Hereafter":2010,
+        "I's":2013,
+        "Love & Taxes":2015,
+        "On the Road":2012,
+        "Quitters":2015,
+        "San Andreas":2015,
+        "Sense8":2015,
+        "Terminator Genisys":2015,
+        "Ten Commandments, The":1956
+    }
+    
+    for title in correct_release_year_dict:
+        fix_release_year(title, correct_release_year_dict[title])
+
+def fix_release_year(movie_title, correct_release_year):
+    """Update the movie table with correct release year: 
+    """  
+
+    try: 
+        movie_obj = Movie.query.filter_by(movie_title=movie_title).one()    
+        movie_obj.release_year = correct_release_year
+        print "movie release year updated: ", movie_title, correct_release_year
+        db.session.commit()
+    except NoResultFound:
+        print "Title not found:", movie_title, correct_release_year
 
 def get_movie_info():
     """Update the movies table with plot, genre, movie poster image url: 
@@ -316,7 +355,10 @@ if __name__ == "__main__":
 # to update data in the Movies and Movie_locations tables using the 
 # commented-out statements below, which were saved for future reference 
 
+    # fix_release_years()
+    # fix_release_year("Ant-Man", 2015)
     # fix_title_the()
+    # fix_title("God is a Communist?* (show me heart universe)", "God is a Communist!?* (show me heart universe)")
     # fix_title("D.O.A", "D.O.A.")
     # fix_title_the()
     # create_movie_image_files()

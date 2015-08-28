@@ -42,11 +42,16 @@ def movie_list():
                 .all()
 
     elif 'title_search' in request.args:
+        print "request.args['title_search']", request.args['title_search']
         title_search = request.args['title_search']
-        if title_search[0:4] == "The ":
+        print "title_search: ", title_search
+        
+        if title_search[0:4] in ("The ", "the "):    
             title_search = title_search[4:]
-        elif title_search[0:2] == "A ":
+            print "title_search: ", title_search
+        elif title_search[0:2] in ("A ", "a "):
             title_search = title_search[2:]
+            print "title_search: ", title_search
         movies = Movie.query.filter(Movie.movie_title.ilike("%" + title_search + "%"))\
         .order_by(Movie.movie_title)\
         .all()

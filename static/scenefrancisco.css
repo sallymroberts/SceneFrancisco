@@ -7,25 +7,25 @@
 
 /* Genre pulldown heading on movie list page */
 #genre_head { color: #6F1402;
-                font-size: 14px;
+                font-size: 16px;
                 font-family: 'merriweather-sans', sans-serif;
 }
 
 /* Genre selection list on movie list page */
 #genre { color: #C12C16;
-                font-size: 14px;
+                font-size: 16px;
                 font-family: 'merriweather-sans', sans-serif;
 }
 
 /* Title input search box on movie list page */
 #title_search { color: #C12C16;
-                font-size: 14px;
+                font-size: 16px;
                 font-family: 'merriweather-sans', sans-serif;
 }
 
 /* Submit buttons on movie list page */
 .submit_button { color: #6F1402;
-                font-size: 14px;
+                font-size: 16px;
                 font-family: 'merriweather-sans', sans-serif;
 }
 
@@ -33,21 +33,21 @@
 /* Styles for text for columns in movie list table */
 /* Movie title column on movie list page */
 .movie_title { color: #6F1402;
-                font-size: 14px;
+                font-size: 16px;
                 font-family: 'merriweather-sans', sans-serif;
 
 }
 
 /* Release year column on movie list page */
 .release_year { color: #6F1402;
-                font-size: 12px;
+                font-size: 14px;
                 font-family: 'merriweather-sans', sans-serif;
 
 }
 
 /* Map link column on movie list page */
 .map_link { color: #EE5C21;
-                font-size: 14px;
+                font-size: 16px;
                 font-family: 'merriweather-sans', serif;
 }
 
@@ -57,13 +57,13 @@ tbody a:hover { color: #6F1402;
 
 /* IMDB link column on movie list page */
 .imdb_link { color: #EE5C21;
-                font-size: 14px;
+                font-size: 16px;
                 font-family: 'merriweather-sans', serif;
 }
 
 /* Genres column for a movie on movie list page */
 .genres_for_a_movie { color: #6F1402;
-                font-size: 14px;
+                font-size: 16px;
                 font-style: italic;
                 font-family: 'merriweather-sans', sans-serif;
 
@@ -96,7 +96,7 @@ tbody a:hover { color: #6F1402;
 
 /* Movie List page heading sub-title paragraph */
 #list_page_subhead {
-    font: 20px Georgia, serif;
+    font: 20px 'merriweather', serif;
     font-weight: bold;
     text-align: center;
     /*color: #FFF0C9;
@@ -142,13 +142,13 @@ tbody a:hover { color: #6F1402;
 /* Movie detail page text content styling     */
 
 .movie_detail_label { color: #6F1402;
-                font-size: 14px;
+                font-size: 16px;
                 font-weight: bold;
                 font-family: 'merriweather-sans', sans-serif;
 }
 
 .movie_detail_content { color: #C12C16;
-                font-size: 14px;
+                font-size: 16px;
                 font-family: 'merriweather-sans', sans-serif;
 }
 

@@ -11,8 +11,8 @@
                 font-family: 'merriweather-sans', sans-serif;
 }
 
-/* Genre selection list on movie list page */
-#genre { color: #C12C16;
+ /*Genre selection list on movie list page */
+#genre         { color: #C12C16;
                 font-size: 16px;
                 font-family: 'merriweather-sans', sans-serif;
 }
@@ -24,10 +24,11 @@
 }
 
 /* Submit buttons on movie list page */
-.submit_button { color: #6F1402;
+.submit_button { color: #C12C16;
                 font-size: 16px;
                 font-family: 'merriweather-sans', sans-serif;
 }
+
 
 /***************************************************/
 /* Styles for text for columns in movie list table */
@@ -158,27 +159,25 @@ tbody a:hover { color: #6F1402;
                 font-family: 'merriweather-sans', sans-serif;
 }
 
-#content {
-    font: 15px arial, sans-serif;
-    font-weight: bold;
-    color: black;
+.container-fluid {
+    background-color: #FFF0C9;
+    padding-top: 3em;
 }
 
-/*a {
-    color: 6F1402;
-    text-decoration: none;
+.container {
+    background-color: #FFF0C9;
+    /*padding-top: 3em;*/
 }
 
-a:hover {
-    text-decoration: none;
-    color: #fff;
+#subhead {
+    background-color: #FFF0C9;
+    /*padding-top: 3em;*/
 }
 
-a:active {
-    text-decoration: none;
-    color: #fff;
-}*/
-
+html {
+    background-color: #FFF0C9;
+    height: 100%;
+}
 
 /*--------------------------------*/
 /*Maps*/

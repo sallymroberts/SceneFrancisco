@@ -9,12 +9,12 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="col-sm-4"> 
+  <div class="container-fluid">
+    <div class="col-sm-2"> 
       <form id="genre_search" action="/">        
         <label for="genre">Subset by Genre:</label>
         <br>
-          <select name="genre" id="genre">
+          <select class="form-control" name="genre" id="genre">
             <option value="All">All</option>
             <option value="Action">Action</option>
             <option value="Adventure">Adventure</option>
@@ -44,21 +44,25 @@
       <br>
       <form id="refresh_list" action="/">       
          
-        <input type="submit" class="submit_button"value="Refresh movie list">
+        <input type="submit" \
+        class="btn btn-danger submit_button" \
+        value="Refresh movie list">
         <br><br><br>
       </form>
 
       <form id="title_search" action="/">  
-        <input type="text" name="title_search" id="title_search" placeholder="Search for your favorite movie by title" size="50">
+        <input type="text" class="form-control" name="title_search" id="title_search" placeholder="Search for your favorite movie by title" size="50">
         <br><br>
         
-        <input type="submit" class="submit_button"value="Search for title">
+        <input type="submit" \
+        class="btn btn-danger submit_button"\
+        value="Search for title">
 
       </form>
 
       </div>
 
-      <div class="col-sm-8">
+      <div class="col-sm-10">
         <table class="table table-condensed">
           <thead>
             <tbody>

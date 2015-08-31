@@ -12,7 +12,7 @@
 }
 
  /*Genre selection list on movie list page */
-#genre         { color: #C12C16;
+#genre         { color: #6F1402;
                 font-size: 16px;
                 font-family: 'merriweather-sans', sans-serif;
 }
@@ -24,7 +24,8 @@
 }
 
 /* Submit buttons on movie list page */
-.submit_button { color: #C12C16;
+.submit_button { color: #FFF0C9;
+                background: 6F1402;
                 font-size: 16px;
                 font-family: 'merriweather-sans', sans-serif;
 }
@@ -123,10 +124,6 @@ tbody a:hover { color: #6F1402;
     font-weight: bold;
     text-align: center;
     color: #C12C16;
-    /*background-color: #FFF0C9;*/
-    width: 100%;
-    margin: 0.0% 0.0% 0.0% 30.5%;
-    /*margin: auto;*/
 }
 
 /* Movie detail page heading release year */
@@ -135,7 +132,6 @@ tbody a:hover { color: #6F1402;
     font-weight: normal;
     text-align: center;
     color: #C12C16;
-    /*background-color: #FFF0C9;*/
     width: 100%;
     margin: auto;
 }
@@ -160,22 +156,24 @@ tbody a:hover { color: #6F1402;
 }
 
 .container-fluid {
-    background-color: #FFF0C9;
+    background-image: url("/static/images/sprinkles_@2x.png.png");
+    background-repeat: repeat;
     padding-top: 3em;
 }
 
 .container {
-    background-color: #FFF0C9;
-    /*padding-top: 3em;*/
+    background-image: url("/static/images/sprinkles_@2x.png");
+    background-repeat: repeat;
 }
 
-#subhead {
-    background-color: #FFF0C9;
-    /*padding-top: 3em;*/
+body {
+    background-image: url("/static/images/sprinkles_@2x.png");
+    background-repeat: repeat;
 }
 
 html {
-    background-color: #FFF0C9;
+    background-image: url("/static/images/sprinkles_@2x.png");
+    background-repeat: repeat;
     height: 100%;
 }
 

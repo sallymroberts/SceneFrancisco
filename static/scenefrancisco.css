@@ -116,30 +116,7 @@ tbody a:hover { color: #6F1402;
 }
 
 /*****************************************/
-/* Movie detail page heading styling     */
 
-/* Movie detail page heading movie title */
-#detail_page_title {
-    font: 35px Georgia, serif;
-    font-weight: bold;
-    text-align: center;
-    color: #C12C16;
-}
-
-/* Movie detail page heading release year */
-#detail_page_release_year {
-    font: 25px Georgia, serif;
-    font-weight: normal;
-    text-align: center;
-    color: #C12C16;
-    width: 100%;
-    margin: auto;
-}
-
-#poster_img {
-    margin: 0.25em;
-    height: 225px;
-}
 
 /**********************************************/
 /* Movie detail page text content styling     */
@@ -177,6 +154,27 @@ html {
     height: 100%;
 }
 
+/* Movie detail page heading styling     */
+
+/* Movie detail page heading movie title */
+#detail_page_title {
+    font: 35px Georgia, serif;
+    font-weight: bold;
+    color: #C12C16;
+}
+
+/* Movie detail page heading release year */
+#detail_page_release_year {
+    font: 25px Georgia, serif;
+    font-weight: normal;
+    color: #C12C16;
+}
+
+#poster_img {
+    margin: 0.25em;
+    height: 225px;
+    padding-right: 5.0em;
+}
 /*--------------------------------*/
 /*Maps*/
 /*--------------------------------*/

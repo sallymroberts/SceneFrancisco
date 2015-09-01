@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% block subhead %} 
-  <span id="detail_page_title"> {{ title }} </span> 
-  <span id="detail_page_release_year"> ({{ movie.release_year }}) </span>
-{% endblock %}
 
 {% block content %}
 <div class="container-fluid">
   <div class="container">
+    <h1>
+      <span id="detail_page_title"> {{ title }} </span> 
+      <span id="detail_page_release_year"> ({{ movie.release_year }}) </span>
+    </h1>
     <div class="row">
       <div class="col-sm-2">
 

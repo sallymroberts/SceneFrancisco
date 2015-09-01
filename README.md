@@ -5,12 +5,12 @@ Scene Francisco is a full stack web application that uses data published by the 
   - Displays a list of movies filmed in San Francisco
   - Has a dropdown list to subset the list by genre
   - Provides a text search for movies by title 
-  - Displays a Google map of San Francisco with markers indicating filming locations for each movie, with the ability to see the description of the loocation by clicking the marker
+  - Displays a Google map of San Francisco with markers indicating filming locations for each movie, with the ability to see the description of the location by clicking the marker
   - Displays a movie poster image and information about the movie at the top of the page that displays the Google map
   - Provides a link to the Internet Movie Database (IMDB) page for each movie
 
 ### Table of contents
-- [Why I selected this project](#Why I selected this project)
+- [Why I selected this project](#Why)
 - [Technology](#Technology)
 - [Movie list page](#Movie list page)
 - [Movie detail page with Google map](#Movie detail page with Google map)
@@ -19,16 +19,16 @@ Scene Francisco is a full stack web application that uses data published by the 
 - [Future enhancements](#Future enhancements)
 - [Acknowledgments](#Acknowledgments)
 
-### Why I selected this project
-I have 12 years of experience as a software engineer designing, developing and maintaining backend business software and I wanted to consolidate my learning at the Hackbright Software Engineering Fellowship for Women by selecting an application requiring a fairly even balance of front-end and back-end development. I enjoy working with data and I wanted to practice something new by using Google maps, so I thought it would be fun to use the San Francisco Film Commission data to display a map identifying filming locations for movies. I love living in the Bay Area and watching movies with scenes displaying well-known San Francisco landmarks, which is a fun contrast to my experience growing up in Columbia, MO, a small midwestern college town.
+### <a name="Why"></a>Why I selected this project
+I have 12 years of experience as a software engineer designing, developing and maintaining backend business software and I wanted to consolidate my learning at the Hackbright Software Engineering Fellowship for Women by selecting an application requiring a fairly even balance of front-end and back-end development. I enjoy working with data and I wanted to practice something new by using Google maps, so I thought it would be fun to use the San Francisco Film Commission data to display a map identifying filming locations for movies. I love living in the Bay Area and watching movies with scenes displaying well-known San Francisco landmarks, which is a fun contrast to my experience growing up in Columbia, MO, a small Midwestern college town.
 
 ### Technology
 Python, Flask, JavaScript, jQuery, AJAX, JSON, Jinja, HTML, CSS, Twitter Bootstrap, SQLite3, SQLAlchemy 
 
 ##### API's
-- I retrieved the latitude and longitude associated with the San Francisco Film Commission location descriptions by using the Python geocoder library (https://pypi.python.org/pypi/geocoder) to access the Google Maps API   
+- I retrieved the latitude and longitude associated with the San Francisco Film Commission location descriptions by using the Python Geocoder library (https://pypi.python.org/pypi/geocoder) to access the Google Maps API   
 - I retrieved the Internet Movie Database (IMDB) ID's for each movie title using a function created by Johannes Bader to access the IMDB API (http://www.johannesbader.ch/2013/11/tutorial-download-posters-with-the-movie-database-api-in-python/). Note: the function is documented at the bottom of Bader's page, which primarily provides code to obtain movie poster images. 
-- I retrieved a short plot description, genre list, and movie poster image URL for each movie by using the Open Movie Database API (http://www.omdbapi.com/). I used the Internet Movie Database (IMDB) ID's (see above) to identify movies for the OMDB API.
+- I retrieved a short plot description, genre list, and movie poster image URL for each movie by using the Open Movie Database (OMDB) API (http://www.omdbapi.com/). I used the Internet Movie Database (IMDB) ID's (see above) to identify movies for the OMDB API.
 
 ##### Dependencies
 Dependencies are listed in requirements.txt
@@ -60,8 +60,8 @@ Converts the seed data provided by the San Francisco Film Commission in JSON for
 Contains many functions to retrieve additional data about the movies and to clean up the data, including:
   - Use the Internet Movie Database (IMDB) API to retrieve the IMDB ID associated with each movie title. Use that IMDB ID to build the URL for the IMDB page for each movie. Load the IMDB ID and IMDB URL to the Movies table.
   - A Google map requires the latitude and longitude identifying a location to display a marker on a map. I used the Python Geocoder function to access the Google API to retrieve the latitude and longitude associated with the location description provided by the San Francisco Film Commission, and loaded the latitude and longitude for each filming location to the Movie locations table.
-  - The Internet Movie Database (IMDB) does not provide API’s to access most of the information about movies available on their site. OMDBAPI.com provides an API to obtain movie data. I used the OMDB API to obtain the IMDB poster image URL, genre, and plot description and loaded this data to the Movies table.
-  - Set the movie image URL to Null (None in Python) for movie poster URL’s retrieved using the OMDB API that had the value “N/A”.
+  - The Internet Movie Database (IMDB) does not provide API’s to access most of the information about movies available on their site. The Open Movie Database (OMDB) provides an API to obtain movie data. I used the OMDB API to obtain the IMDB poster image URL, genre, and plot description and loaded this data to the Movies table.
+  - Set the movie image URL to Null (None in Python) for movie poster URL’s retrieved using the Open Movie Database (OMDB) API that had the value “N/A”.
   - Download the Internet Movie Database (IMDB) movie poster images to respect IMDB’s desire to reduce impact on their servers by blocking hot-linking access to these images, which I encountered in my initial attempt to display these images on the movie detail page.
   - Update the Movies table with a reformatted title for movies beginning with “The “ and “A “ to facilitate listing the movies in alphabetical order. For example, I reformatted “The Bachelor” to “Bachelor, The”. In the app server.py file, I reformatted these titles to display the original title on the Movie detail page.
   - Update the Movies table with the correct Internet Movie Database (IMDB) ID for 33 IMDB ID’s incorrectly identified by the IMDB API for which I manually identified the correct IMDB ID. In most cases, the incorrect ID’s were for movies with similar or identical titles.

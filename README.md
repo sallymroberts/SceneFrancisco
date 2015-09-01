@@ -12,17 +12,17 @@ Scene Francisco is a full stack web application that uses data published by the 
 ### Table of contents
 - [Why I selected this project](#Why)
 - [Technology](#Technology)
-- [Movie list page](#Movie list page)
-- [Movie detail page with Google map](#Movie detail page with Google map)
-- [Movie data from San Francisco Film Commission](#Movie data from San Francisco Film Commission)
+- [Movie list page](#List)
+- [Movie detail page with Google map](#Map)
+- [Movie data from San Francisco Film Commission](#FilmData)
 - [Structure](#Structure)
-- [Future enhancements](#Future enhancements)
+- [Future enhancements](#Future)
 - [Acknowledgments](#Acknowledgments)
 
 ### <a name="Why"></a>Why I selected this project
 I have 12 years of experience as a software engineer designing, developing and maintaining backend business software and I wanted to consolidate my learning at the Hackbright Software Engineering Fellowship for Women by selecting an application requiring a fairly even balance of front-end and back-end development. I enjoy working with data and I wanted to practice something new by using Google maps, so I thought it would be fun to use the San Francisco Film Commission data to display a map identifying filming locations for movies. I love living in the Bay Area and watching movies with scenes displaying well-known San Francisco landmarks, which is a fun contrast to my experience growing up in Columbia, MO, a small Midwestern college town.
 
-### Technology
+### <a name="Technology"></a>Technology
 Python, Flask, JavaScript, jQuery, AJAX, JSON, Jinja, HTML, CSS, Twitter Bootstrap, SQLite3, SQLAlchemy 
 
 ##### API's
@@ -33,17 +33,17 @@ Python, Flask, JavaScript, jQuery, AJAX, JSON, Jinja, HTML, CSS, Twitter Bootstr
 ##### Dependencies
 Dependencies are listed in requirements.txt
 
-### Movie list page
+### <a name="List"></a>Movie list page
 ![image](https://raw.githubusercontent.com/sallymroberts/SceneFrancisco/master/static/images/movie_list_screen_shot.png)
 
-### Movie detail page with Google map
+### <a name="Map"></a>Movie detail page with Google map
 ![image](https://raw.githubusercontent.com/sallymroberts/SceneFrancisco/master/static/images/movie_detail_screen_shot.png)
 
-### Movie data from San Francisco Film Commission
+### <a name="FilmData"></a>Movie data from San Francisco Film Commission
 View public dataset published by the San Francisco Film Commission at: https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am
 ![image](https://raw.githubusercontent.com/sallymroberts/SceneFrancisco/master/static/images/SanFranciscoFilmCommissionData.png)
 
-### Structure
+### <a name="Structure"></a>Structure
 
 ##### Python files
 
@@ -82,7 +82,7 @@ Contains HTML, JavaScript, Jinja, JQuery and Twitter bootstrap used together wit
 ###### scenefranciso.css
 Contains CSS referencing classes and ID’s defined in the HTML templates, to style the appearance of the text, input forms, links, and table containing the movie list.
 
-### Future enhancements
+### <a name="Future"></a>Future enhancements
 
 ##### Top filming locations page
 I want to add a page to display a Google map with markers to identify the top filming locations in San Francisco, with info windows for each marker identifying the movies that were filmed at that location. To satisfy my curiosity, I performed an SQLite3 query of the Movie locations table to identify the top filming locations. The filming locations associated with 8 or more movies (sorted by number of movies) include:
@@ -125,7 +125,7 @@ I did a lot of data cleanup for this project (see description of update_tables.p
 - Correct the spelling of misspelled street names and location names
 - Delete a few duplicate location descriptions for the same movie.
 
-### Acknowledgments
+### <a name="Acknowldegements"></a>Acknowledgments
 In addition to the support of my husband and fellow Hackbright fellows, the following people were instrumental to the project, providing mentorship, inspiration, and guidance:
 
 ##### Hackbright Instructors

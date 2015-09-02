@@ -40,7 +40,7 @@ Dependencies are listed in requirements.txt
 ![image](https://raw.githubusercontent.com/sallymroberts/SceneFrancisco/master/static/images/movie_detail_screen_shot.png)
 
 ### <a name="FilmData"></a>Movie data from San Francisco Film Commission
-View public dataset published by the San Francisco Film Commission at: https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am
+This is the public dataset published by the San Francisco Film Commission that I used as the primary source of data for my application. Click https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am to view this data.
 ![image](https://raw.githubusercontent.com/sallymroberts/SceneFrancisco/master/static/images/SanFranciscoFilmCommissionData.png)
 
 ### <a name="Structure"></a>Structure
@@ -125,7 +125,7 @@ I did a lot of data cleanup for this project (see description of update_tables.p
 - Correct the spelling of misspelled street names and location names
 - Delete a few duplicate location descriptions for the same movie.
 
-### <a name="Acknowldegements"></a>Acknowledgments
+### <a name="Acknowledgements"></a>Acknowledgments
 In addition to the support of my husband and fellow Hackbright fellows, the following people were instrumental to the project, providing mentorship, inspiration, and guidance:
 
 ##### Hackbright Instructors

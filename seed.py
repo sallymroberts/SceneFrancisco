@@ -40,26 +40,6 @@ def load_movies():
         if movie_list[i][10] is not None:
             load_movie_location(movie_line, movie_id_set)
 
-            # load_movie_actors(actor_id_list, movie_id)
-            # print 'writers:', movie_list[i][15]
-            # print 'actor_1:', movie_list[i][16]
-            # print 'actor_2:', movie_list[i][17]
-            # print 'actor_3:', movie_list[i][18]
-            # print 'location:', movie_list[i][10]
-            # print 'fun_fact:', movie_list[i][11]
-
-            # print 'title:', movie_list[i][8]
-            # print 'release year:', movie_list[i][9]
-            # print 'location:', movie_list[i][10]
-            # print 'fun_fact:', movie_list[i][11]
-            # print 'production_company:', movie_list[i][12]
-            # print 'distributor:', movie_list[i][13]
-            # print 'director:', movie_list[i][14]
-            # print 'writers:', movie_list[i][15]
-            # print 'actor_1:', movie_list[i][16]
-            # print 'actor_2:', movie_list[i][17]
-            # print 'actor_3:', movie_list[i][18]
-            # print
 def get_director_id(movie_line):
     """Process director name to get director id: 
         If director name not in director table, add to director table

@@ -280,24 +280,48 @@ def info_from_imdb_id(imdb_id):
             short plot description
             movie genre
             movie poster image url
+
+    >>> info_from_imdb_id('tt0377029')
+    Plot:  N/A
+    [None, u'Documentary', u'http://ia.media-imdb.com/images/M/MV5BMTI0Mzc4OTQwOV5BMl5BanBnXkFtZTcwNDY0NjIzMQ@@._V1_SX300.jpg']
+    
+    >>> info_from_imdb_id('tt2698124')
+    Poster image url:  N/A
+    [u'A new religion is born. The CIA investigates.', u'Comedy', None]
+    
+    >>> info_from_imdb_id('tt1126590')
+    [u'A drama about the awakening of the painter Margaret Keane, her phenomenal success in the 1950s, and the subsequent legal difficulties she had with her husband, who claimed credit for her works in the 1960s.', u'Biography, Crime, Drama', u'http://ia.media-imdb.com/images/M/MV5BMjA2ODM5MDE3N15BMl5BanBnXkFtZTgwOTIxNjc1MzE@._V1_SX300.jpg']
+    
+    >>> info_from_imdb_id('tt00')
+    []
+
     """
 
     pattern = 'http://www.omdbapi.com/?apikey=[REPLACE]&i={imdb_id}&plot=short&r=json'
     url = pattern.format(imdb_id=urllib.quote(imdb_id))
     r = requests.get(url)
     results_dict = r.json()
-    response = results_dict['Response']
-    
-    if response:
-        if results_dict['Plot'] != 'N/A': 
+
+    if 'Error' in results_dict:
+        return []
+    else:
+        response = results_dict['Response']
+
+        if results_dict['Plot'] != 'N/A':             
             plot = results_dict['Plot']
         else:
+            print "Plot: ", results_dict['Plot']
             plot = None
+        
+        if results_dict['Poster'] != 'N/A': 
+            poster_img_url = results_dict['Poster']
+        else:
+            print "Poster image url: ", results_dict['Poster']
+            poster_img_url = None
+
         genre = results_dict['Genre'] 
-        poster_img_url = results_dict['Poster'] 
+ 
         return [plot, genre, poster_img_url]
-    else: 
-        return []
 
 def fix_image_url():
     """Update the movie table with null image_url if value is "N/A" 
@@ -355,6 +379,7 @@ if __name__ == "__main__":
 # to update data in the Movies and Movie_locations tables using the 
 # commented-out statements below, which were saved for future reference 
 
+    
     # fix_release_years()
     # fix_release_year("Ant-Man", 2015)
     # fix_title_the()

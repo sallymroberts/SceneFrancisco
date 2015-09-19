@@ -9,8 +9,6 @@ from model import Movie, Movie_location, Movie_actor, Actor, Director, connect_t
 
 from sqlalchemy.orm.exc import NoResultFound
 
-import requests, time
-
 
 app = Flask(__name__)
 
@@ -18,7 +16,7 @@ app = Flask(__name__)
 app.secret_key = "ABC"
 
 # Normally, if you use an undefined variable in Jinja2, it fails silently.
-# This is horrible. Fix this so that, instead, it raises an error.
+# Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
@@ -107,7 +105,7 @@ def movie_detail(movie_id):
 # Helper functions
 
 if __name__ == "__main__":
-    # We have to set debug=True here, since it has to be True at the point
+    # Set debug=True here to use DebugToolbarExtension, since it has to be True at the point
     # that we invoke the DebugToolbarExtension
     app.debug = False
 

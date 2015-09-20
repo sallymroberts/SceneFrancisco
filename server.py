@@ -9,11 +9,13 @@ from model import Movie, Movie_location, Movie_actor, Actor, Director, connect_t
 
 from sqlalchemy.orm.exc import NoResultFound
 
+import os
 
 app = Flask(__name__)
 
 # Required to use Flask sessions and the debug toolbar
-app.secret_key = "ABC"
+app.secret_key = os.environ['FLASK_TOKEN']
+# app.config['SECRET_KEY'] = os.environ['FLASK_SECRET_KEY']
 
 # Normally, if you use an undefined variable in Jinja2, it fails silently.
 # Fix this so that, instead, it raises an error.
@@ -104,15 +106,11 @@ def movie_detail(movie_id):
 ##############################################################################
 # Helper functions
 
+# Setup up variables based on environment (Heroku, local) 
+PORT = int(os.environ.get("PORT", 5000))
+DEBUG = "NO_DEBUG" not in os.environ
+
 if __name__ == "__main__":
-    # Set debug=True here to use DebugToolbarExtension, since it has to be True at the point
-    # that we invoke the DebugToolbarExtension
-    app.debug = False
-
+    app.debug = DEBUG
     connect_to_db(app)
-
-    # Use the DebugToolbar
-    # DebugToolbarExtension(app)
-
-    app.run()
-
+    app.run(host="0.0.0.0", port=PORT)    

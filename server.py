@@ -64,9 +64,7 @@ def movie_list():
 def movie_detail(movie_id):
     """Show movie detail."""
 
-    movie = Movie.query.filter_by(movie_id=movie_id).one()
-
-    print "Original title: ", movie.movie_title 
+    movie = Movie.query.filter_by(movie_id=movie_id).one() 
     
     if movie.movie_title[-5:] in (", The", ", the"):   
         title = "The " + movie.movie_title[:-5]
@@ -74,8 +72,6 @@ def movie_detail(movie_id):
         title = "A " + movie.movie_title[:-3]
     else: 
         title = movie.movie_title
-
-    print "title: ", title
         
     locations = Movie_location.query.filter_by(movie_id=movie_id).all()
 

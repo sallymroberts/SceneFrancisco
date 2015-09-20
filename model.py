@@ -3,15 +3,15 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-# This is the connection to the SQLite database; we're getting this through
-# the Flask-SQLAlchemy helper library. On this, we can find the `session`
-# object, where we do most of our interactions (like committing, etc.)
+# This is the connection to the SQLite database available through the
+# Flask-SQLAlchemy helper library. On this, find the `session` object,
+# to do most interactions (like committing, etc.)
 
 db = SQLAlchemy()
 
 
 ##############################################################################
-# Part 1: Compose ORM
+# Define tables
 
 class Director(db.Model):
 
@@ -100,21 +100,19 @@ class Actor(db.Model):
     #     return "<actor_id=%d actor_name=%s>" % (self.actor_id, self.actor_name)
 
 ##############################################################################
-# Helper functions
+# Functions
 
 def connect_to_db(app):
-    """Connect the database to our Flask app."""
+    """Connect the database to the Flask app."""
 
-    # Configure to use our SQLite database
+    # Configure to use SQLite database
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sf_movies.db'
-    # app.config['SQLALCHEMY_RECORD_QUERIES'] = True
     db.app = app
     db.init_app(app)
 
 
 if __name__ == "__main__":
-    # As a convenience, if we run this module interactively, it will leave
-    # you in a state of being able to work with the database directly.
+    # For convenience, run module interactively to work directly with the database
 
     from server import app
     connect_to_db(app)

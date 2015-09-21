@@ -44,6 +44,10 @@ def movie_list():
     elif 'title_search' in request.args:
         title_search = request.args['title_search']
         
+# Remove "the " and "a " from beginning of user title search string 
+# because titles beginning with "The " and "A " are formatted like
+# "Bachelor, The" and "Jitney Elopement, A", to alphabetize the list 
+    
         if title_search[0:4] in ("The ", "the "):    
             title_search = title_search[4:]
         elif title_search[0:2] in ("A ", "a "):
@@ -66,6 +70,12 @@ def movie_detail(movie_id):
 
     movie = Movie.query.filter_by(movie_id=movie_id).one() 
     
+# Reformat movie titles for display on movie detail page in format:
+# "The Bachelor" and "A Jitney Elopement".
+# Titles beginning with "The " and "A " are  are formatted like
+# "Bachelor, The" and "Jitney Elopement, A", in the Movies table
+# in order to alphabetize the movie list correctly
+
     if movie.movie_title[-5:] in (", The", ", the"):   
         title = "The " + movie.movie_title[:-5]
     elif movie.movie_title[-3:] in (", A", ", a"):
@@ -75,28 +85,34 @@ def movie_detail(movie_id):
         
     locations = Movie_location.query.filter_by(movie_id=movie_id).all()
 
-    json_compiled = {}
+    location_dict = {}
     sf_location_list = [] 
 
     for location in locations:
         dict_key = str(location.latitude) + str(location.longitude)
-        
+
+# The Google maps API returns Latitude 37.7749295 and Longitude -122.419415,
+# the generic coordinates for San Francisco, for locations it cannot 
+# identify more specifically.
+# Pass these locations as a list, to display without markers on the movie detail
+# page, because the markers would be misleading
+
         if location.latitude == 37.7749295 and location.longitude == -122.4194155:
             sf_location_list.append(location.location_description)
 
-        elif dict_key in json_compiled: 
-            json_compiled[dict_key]['desc'] += "; <p>" + location.location_description
+        elif dict_key in location_dict: 
+            location_dict[dict_key]['desc'] += "; <p>" + location.location_description
 
         else:
 
-            json_compiled[dict_key] = {}
-            json_compiled[dict_key]['lat'] = location.latitude
-            json_compiled[dict_key]['lng'] = location.longitude
-            json_compiled[dict_key]['desc'] = location.location_description
+            location_dict[dict_key] = {}
+            location_dict[dict_key]['lat'] = location.latitude
+            location_dict[dict_key]['lng'] = location.longitude
+            location_dict[dict_key]['desc'] = location.location_description
 
     return render_template("movie_detail.html",\
                     movie=movie, \
-                    film_locations=json_compiled, \
+                    film_locations=location_dict, \
                     sf_location_list=sf_location_list, \
                     title=title)
 ##############################################################################

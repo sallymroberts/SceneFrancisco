@@ -1,4 +1,14 @@
-"""Utility file to do update tables after seed data loaded 
+"""Utility file to update tables after running seed.py to load seed data in json
+   format from the San Francisco Film Commission into the data model defined
+   in model.py. 
+   Function names beginning with "fix_" are used to clean up data. 
+   Other functions access API's to update the data model with additional 
+   information about the movies and movie locations.
+   These functions were run manually, one at at time, throughout the course 
+   of the project, and are not yet set up to run automatically in an
+   appropriate sequence after re-loading updated San Francisco Film Commission 
+   data to the data model. The San Francisco Film Commission publishes
+   updated movie data annually. 
 """
 
 from model import Director, Movie, Movie_location, Movie_actor, Actor, connect_to_db, db
@@ -80,10 +90,9 @@ def get_latlng():
             location_SF = obj.location_description +', San Francisco, CA'
             g = geocoder.google(location_SF)
 
+# If g.latng not returned, this likely means that the API has rejected
+# the request due to exceeding number or frequency of requests. 
             if not g.latlng: 
-                print g
-                print "No latitude / longitude retrieved, stop program"
-                print "Loc desc, loc id, movie id: ", obj.location_description, obj.location_id, obj.movie_id 
                 break
             else:
                 obj.latitude = g.latlng[0]
@@ -100,7 +109,8 @@ def get_latlng():
     db.session.commit()
 
 def get_one_latlng(location_description):
-    """Retrieve latitude and longitude for one location: 
+    """Retrieve and print latitude and longitude for one location.
+       Use for debugging if error encountered in get_latlng() function 
     """
     
     location_SF = location_description + ', San Francisco, CA'
@@ -170,7 +180,7 @@ def fix_imdb_id(movie_title, correct_imdb_id):
         movie_obj.imdb_url = 'http://www.imdb.com/title/' + correct_imdb_id + '/?ref_=fn_al_tt_1'
         db.session.commit()
     except NoResultFound:
-        print "Title not found:", movie_title, correct_imdb_id
+        pass
 
 def fix_movie_titles():
     """Update the movie table from a dictionary of original titles and correct titles: 
@@ -201,10 +211,9 @@ def fix_title(bad_title, correct_title):
     try: 
         movie_obj = Movie.query.filter_by(movie_title=bad_title).one()    
         movie_obj.movie_title = correct_title
-        print "Title changed: ", bad_title, correct_title
         db.session.commit()
     except NoResultFound:
-        print "Title not found:", bad_title
+        pass
 
 def fix_release_years():
     """Update the movie table from a dictionary of original titles and correct release years: 
@@ -239,10 +248,9 @@ def fix_release_year(movie_title, correct_release_year):
     try: 
         movie_obj = Movie.query.filter_by(movie_title=movie_title).one()    
         movie_obj.release_year = correct_release_year
-        print "movie release year updated: ", movie_title, correct_release_year
         db.session.commit()
     except NoResultFound:
-        print "Title not found:", movie_title, correct_release_year
+        pass
 
 def get_movie_info():
     """Update the movies table with plot, genre, movie poster image url: 
@@ -310,13 +318,11 @@ def info_from_imdb_id(imdb_id):
         if results_dict['Plot'] != 'N/A':             
             plot = results_dict['Plot']
         else:
-            print "Plot: ", results_dict['Plot']
             plot = None
         
         if results_dict['Poster'] != 'N/A': 
             poster_img_url = results_dict['Poster']
         else:
-            print "Poster image url: ", results_dict['Poster']
             poster_img_url = None
 
         genre = results_dict['Genre'] 
@@ -348,58 +354,29 @@ def create_movie_image_files():
             filepath = os.path.join(path, filename)
             response = requests.get(mov.image_url, stream=True)
             if response.status_code == 200:
-                print response.raw
                 with open(filepath, 'wb') as f:
                     response.raw.decode_content = True
-                    print response.raw
                     shutil.copyfileobj(response.raw, f) 
 
 def fix_title_the():
     """Update the movie table for titles beginning with 'The ' or 'A '
+    to format the title for use in alphabetizing the movie list. 
+    Original format: 
+    "The Bachelor", "A Jitney Elopement"
+    Updated format:
+    "Bachelor, The", "Jitney Elopement, A"
     """  
 
-    # movies = Movie.query.filter_by(movie_title.like("The%")).all()
     movies = Movie.query.all()
     
     for mov in movies:
         if mov.movie_title[0:4] == 'The ': 
             mov.movie_title = mov.movie_title[4:] + ", The" 
-            print "Title changed to: ", mov.movie_title
             db.session.commit() 
 
         elif mov.movie_title[0:2] == 'A ': 
             mov.movie_title = mov.movie_title[2:] + ", A"
-            print "Title changed to: ", mov.movie_title
             db.session.commit()      
 
 if __name__ == "__main__":
     connect_to_db(app)
-
-# NOTE: The functions in this file were tested and run one at a time
-# to update data in the Movies and Movie_locations tables using the 
-# commented-out statements below, which were saved for future reference 
-
-    
-    # fix_release_years()
-    # fix_release_year("Ant-Man", 2015)
-    # fix_title_the()
-    # fix_title("God is a Communist?* (show me heart universe)", "God is a Communist!?* (show me heart universe)")
-    # fix_title("D.O.A", "D.O.A.")
-    # fix_title_the()
-    # create_movie_image_files()
-    # fix_image_url()
-    # get_movie_info()
-
-    # print info_from_imdb_id("tt1855110")
-    # print "imdb id invalid: ", info_from_imdb_id("invalid")
-    # fix_imdb_id("180", "tt1855110")
-    # fix_imdb_ids()
-
-    # get_one_latlng("Powell from Bush and Sutter")
-    # get_one_latlng("Crissy Field")
-    # get_one_latlng("Broderick from Fulton to McAlister")
-    # get_one_latlng("")
-    # imdb_id = imdb_id_from_title("Final Destination")
-    # print imdb_id
-    # get_latlng()
-    # load_imdb_id()

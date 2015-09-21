@@ -20,9 +20,6 @@ class Director(db.Model):
     director_id = db.Column(db.Integer, primary_key=True)
     director_name = db.Column(db.String(50), nullable=False) 
 
-    # def __repr__(self):
-    #     return "<director_id=%d director_name=%s>" % (self.director_id, self.director_name)
-
 class Movie(db.Model):
 
     __tablename__ = "movies" 
@@ -41,13 +38,14 @@ class Movie(db.Model):
     plot = db.Column(db.Text)
 
 
-    director_rel = db.relationship('Director',
-                           backref=db.backref('movies', order_by=movie_id)
-                           )
+    director_rel = db.relationship(
+        'Director',
+        backref=db.backref('movies', order_by=movie_id))
 
-    actors = db.relationship('Actor',
-                        secondary='movie_actors',
-                        backref='movies')
+    actors = db.relationship(
+        'Actor',
+        secondary='movie_actors',
+        backref='movies')
 
     def __repr__(self):
         return "<movie_id=%d title=%s>" % (self.movie_id, self.movie_title)
@@ -63,13 +61,10 @@ class Movie_location(db.Model):
     longitude = db.Column(db.Float)
     fun_fact = db.Column(db.Text) 
 
-    movie_location_rel = db.relationship('Movie',
-                           backref=db.backref('locations', order_by=location_id)
-                           )
-
-    # def __repr__(self):
-    #     return "<location_id=%d movie_id=%s location_description=%s>" % (self.location_id, self.movie_id, self.location_description)
-
+    movie_location_rel = db.relationship(
+        'Movie',
+        backref=db.backref(
+            'locations', order_by=location_id))
 
 class Movie_actor(db.Model):
 
@@ -79,15 +74,15 @@ class Movie_actor(db.Model):
     movie_id = db.Column(db.Integer, db.ForeignKey('movies.movie_id'), nullable=False)
     actor_id = db.Column(db.Integer, db.ForeignKey('actors.actor_id'), nullable=False)
 
-    movie_actor_rel = db.relationship('Movie',
-                           backref=db.backref('movie_actors', order_by=actor_id)
-                           )
-    actor_rel = db.relationship('Actor',
-                           backref=db.backref('movie_actors', order_by=movie_id)
-                           )
+    movie_actor_rel = db.relationship(
+        'Movie',
+        backref=db.backref(
+            'movie_actors', order_by=actor_id))
 
-    # def __repr__(self):
-    #     return "<movie_actor_id=%d movie_id=%d actor_id=%d>" % (self.movie_actor_id, self.movie_id, self.actor_id)
+    actor_rel = db.relationship(
+        'Actor',
+        backref=db.backref(
+            'movie_actors', order_by=movie_id))
 
 class Actor(db.Model):
 
@@ -95,9 +90,6 @@ class Actor(db.Model):
 
     actor_id = db.Column(db.Integer, primary_key=True)
     actor_name = db.Column(db.String(50), nullable=False) 
-
-    # def __repr__(self):
-    #     return "<actor_id=%d actor_name=%s>" % (self.actor_id, self.actor_name)
 
 ##############################################################################
 # Functions

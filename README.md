@@ -16,7 +16,7 @@ Scene Francisco is a full stack web application that uses data published by the 
 - [Movie list page](#List)
 - [Movie detail page with Google map](#Map)
 - [Movie data from San Francisco Film Commission](#FilmData)
-- [Technical Choices and Architecture](#Technology)
+- [Technology and Technical Choices](#Technology)
 - [Structure](#Structure)
 - [Future enhancements](#Future)
 - [Acknowledgments](#Acknowledgments)
@@ -36,7 +36,7 @@ I wanted to use my project to consolidate learning the full stack web developmen
 This is the public dataset published by the San Francisco Film Commission that I used as the primary source of data for my application. Click https://data.sfgov.org/Culture-and-Recreation/Film-Locations-in-San-Francisco/yitu-d5am to view this data.
 ![image](https://raw.githubusercontent.com/sallymroberts/SceneFrancisco/master/static/images/SanFranciscoFilmCommissionData.png)
 
-### <a name="Technology"></a>Technical Choices / Architecture
+### <a name="Technology"></a>Technology and Technical Choices
 #### Stack
 Python, Flask, JavaScript, jQuery, AJAX, JSON, Jinja, HTML, CSS, Twitter Bootstrap, SQLite3, SQLAlchemy 
 
@@ -55,7 +55,6 @@ Dependencies are listed in requirements.txt
 The primary source of data was the SF Film Commission public dataset, which identifies movies filmed in San Francisco and the locations within San Francisco where the movies were filmed. It can be downloaded in a variety of formats, including Comma Separated Values (CSV) and JavaScript Object Notation (JSON).  I considered using the Python CSV module to process the data in CSV format, which provides functionality for distinguishing between commas used to separate data values and commas that are part of the data, for example. However, I chose to download the San Francisco Film Commission data in JSON format because it is a more standard data format for API’s and is easier to process because it clearly identifies and defines the data elements. 
 
 ###### Defining the Data Model
-
 There are 5 tables in the Data Model:
  - The Movies table identifies basic information about each movie. Director id is a foreign key to the Directors table and the primary key is an auto-incremented integer for movie id.
  - The Directors table identifies director names and the primary key is an auto-incremented integer for director id.

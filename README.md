@@ -44,13 +44,16 @@ Python, Flask, JavaScript, jQuery, AJAX, JSON, Jinja, HTML, CSS, Twitter Bootstr
 Dependencies are listed in requirements.txt
 
 #### Defining and Populating the Data Model
+
 ###### Files associated with the data model
   - movie_seed.json is the San Francisco Film Commission data (seed data)
   - model.py defines the application data model (sf_movies.db) and connects the data model to the Flask app
   - seed.py loads the San Francisco Film Commission data into the application data model
   - update_tables.py contains functions to update the data model, which were created and run on an ad hoc basis throughout the project. Several functions access API's to retrieve additional data about each movie and the movie locations, and other functions clean up the data.
+
 ###### Downloading the San Francisco Film Commission dataset
 The primary source of data was the SF Film Commission public dataset, which identifies movies filmed in San Francisco and the locations within San Francisco where the movies were filmed. It can be downloaded in a variety of formats, including Comma Separated Values (CSV) and JavaScript Object Notation (JSON).  I considered using the Python CSV module to process the data in CSV format, which provides functionality for distinguishing between commas used to separate data values and commas that are part of the data, for example. However, I chose to download the San Francisco Film Commission data in JSON format because it is a more standard data format for API’s and is easier to process because it clearly identifies and defines the data elements. 
+
 ###### Defining the Data Model
 There are 5 tables in the Data Model:
  - The Movies table identifies basic information about each movie. Director id is a foreign key to the Directors table and the primary key is an auto-incremented integer for movie id.
@@ -59,9 +62,10 @@ There are 5 tables in the Data Model:
  - The Movie Locations table has one row per filming location for each movie. It has columns for location description from the San Francisco Film Commission data, and latitude and longitude obtained using the Google maps API. The primary key is an auto-incremented integer for location id and movie id is a foreign key to the Movies table. A relationship is defined linking the Movies and Movie Locations tables to facilitate querying the data.
  - Movie Actors is used as an association table to link the Movies table with the Actors table in a many to many relationship, using columns for actor id and movie id as foreign keys and the primary key is an auto-incremented integer for movie actor id. Relationships are defined linking the Actors and Movie Actors tables and the Movies and Movie Actors tables to facilitate querying the data.
 
-Normalizing the data:
+###### Normalizing the data:
 
 For a production application, I would usually choose to fully normalize the data for clarity, integrity, and ease of maintenance. However, I chose to make exceptions for the initial version of the data model. I did not normalize the locations due to time constraints and fairly messy data that would require time-consuming cleanup and research in order to clearly define unique locations. The Movies table contains columns for production company, writers, and distributors, which I loaded directly from the San Francisco Film Commission data for each movie instead of normalizing the data as I did for actors and directors. Creating normalized tables would have required data cleanup first to identify unique values and I planned to simply display the writers on the movie detail page and did not expect to use the production company and distributors in the initial version of the application, so I chose not to normalize this data.
+
 ###### Retrieving additional data using API's 
 - Google maps require the latitude and longitude in order to display markers on the map for each location. I retrieved the latitude and longitude associated with the San Francisco Film Commission location descriptions by using the Python Geocoder library (https://pypi.python.org/pypi/geocoder) to access the Google Maps API.    
 - I wanted to provide a link to the Internet Movie Database (IMDB) web page for each movie. The URL for the IMDB web page for a movie can be constructed from the IMDB ID, so I retrieved the Internet Movie Database (IMDB) ID's for each movie title using a function created by Johannes Bader to access the IMDB API (http://www.johannesbader.ch/2013/11/tutorial-download-posters-with-the-movie-database-api-in-python/). Note: the function is documented at the bottom of Bader's page, which primarily provides code to obtain movie poster images. 
@@ -88,6 +92,7 @@ I wanted the screen interface and appearance to be understandable, easy to use, 
 - My first attempt to use a text-shadow effect to make the page title on the movie list page readable and attractive against the Golden Gate Bridge photo background was not very successful. I asked another fellowship participant with substantial frontend experience for suggestions and she pointed me to a web page with sample code developed by Tom Elliot to create a "sharper glow" text shadow effect. I spent a while playing around with this effect, selecting various color combinations, fonts, and font sizes, until I achieved a result that worked well. 
 
 #### Testing
+
 Given time constraints, I chose to primarily use manual testing for my application. I used many ad hoc SQL queries to verify the data. After completing the Hackbright fellowship, I created limited unit tests and doctests for the info_from_imdb_id function within the update_tables.py file in order to practice automated testing. 
 
 I have extensive experience defining and executing test plans as part of the process of developing business software using the waterfall method. I believe that automated testing is an essential agile software development practice and I would like to add tests to my application to enjoy the benefits of automated testing:

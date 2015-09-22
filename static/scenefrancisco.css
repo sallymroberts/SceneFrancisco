@@ -89,7 +89,9 @@ tbody a:hover { color: #6F1402;
     text-align: center;
     color: #961E1E;
 
-    /* sharper glow */
+    /* Sharper glow text-shadow effect used to outline page title */
+    /* I obtained the code to create this effect from Tom Elliot */
+    /* at http://www.webdevdoor.com/html-css/css3-text-glow-text-shadow/ */
     text-shadow: 1px 0px 0px #FFF0C9, 1px 1px 0px #FFF0C9, 0px 1px 0px #FFF0C9, 
     -1px 1px 0px #FFF0C9, -1px 0px 0px #FFF0C9, -1px -1px 0px #FFF0C9, 
     0px -1px 0px #FFF0C9, 1px -1px 0px #FFF0C9, 1px 4px 5px #aeaeae;

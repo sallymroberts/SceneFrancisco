@@ -289,6 +289,14 @@ def info_from_imdb_id(imdb_id):
             movie genre
             movie poster image url
 
+    Tests below verify that the correct values are returned for the following
+    IMDB ID's:
+
+    'tt0377029': API returns 'N/A' for plot description, plot returned is None
+    'tt2698124': API returns 'N/A' for poster image url, poster image URL returned is None
+    'tt1126590': API returns valid values, all values returned are correct
+    'tt00':      Invalid IMDB ID, API returns error, empty list is returned
+
     >>> info_from_imdb_id('tt0377029')
     Plot:  N/A
     [None, u'Documentary', u'http://ia.media-imdb.com/images/M/MV5BMTI0Mzc4OTQwOV5BMl5BanBnXkFtZTcwNDY0NjIzMQ@@._V1_SX300.jpg']

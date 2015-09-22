@@ -55,6 +55,7 @@ Dependencies are listed in requirements.txt
 The primary source of data was the SF Film Commission public dataset, which identifies movies filmed in San Francisco and the locations within San Francisco where the movies were filmed. It can be downloaded in a variety of formats, including Comma Separated Values (CSV) and JavaScript Object Notation (JSON).  I considered using the Python CSV module to process the data in CSV format, which provides functionality for distinguishing between commas used to separate data values and commas that are part of the data, for example. However, I chose to download the San Francisco Film Commission data in JSON format because it is a more standard data format for API’s and is easier to process because it clearly identifies and defines the data elements. 
 
 ###### Defining the Data Model
+
 There are 5 tables in the Data Model:
  - The Movies table identifies basic information about each movie. Director id is a foreign key to the Directors table and the primary key is an auto-incremented integer for movie id.
  - The Directors table identifies director names and the primary key is an auto-incremented integer for director id.
@@ -62,7 +63,7 @@ There are 5 tables in the Data Model:
  - The Movie Locations table has one row per filming location for each movie. It has columns for location description from the San Francisco Film Commission data, and latitude and longitude obtained using the Google maps API. The primary key is an auto-incremented integer for location id and movie id is a foreign key to the Movies table. A relationship is defined linking the Movies and Movie Locations tables to facilitate querying the data.
  - Movie Actors is used as an association table to link the Movies table with the Actors table in a many to many relationship, using columns for actor id and movie id as foreign keys and the primary key is an auto-incremented integer for movie actor id. Relationships are defined linking the Actors and Movie Actors tables and the Movies and Movie Actors tables to facilitate querying the data.
 
-###### Normalizing the data:
+###### Normalizing the data
 
 For a production application, I would usually choose to fully normalize the data for clarity, integrity, and ease of maintenance. However, I chose to make exceptions for the initial version of the data model. I did not normalize the locations due to time constraints and fairly messy data that would require time-consuming cleanup and research in order to clearly define unique locations. The Movies table contains columns for production company, writers, and distributors, which I loaded directly from the San Francisco Film Commission data for each movie instead of normalizing the data as I did for actors and directors. Creating normalized tables would have required data cleanup first to identify unique values and I planned to simply display the writers on the movie detail page and did not expect to use the production company and distributors in the initial version of the application, so I chose not to normalize this data.
 

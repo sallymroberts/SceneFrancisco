@@ -94,6 +94,7 @@ I have extensive experience defining and executing test plans as part of the pro
 - Reducing the risk of introducing unidentified bugs when maintaining an application
 - Facilitating the practice of refactoring code to make it clearer and more maintainable, without incurring a high risk of breaking the code in the process
 - Clearly defining expected functionality, including edge cases 
+
 ### <a name="Structure"></a>Structure
 
 ##### Python files
@@ -163,7 +164,7 @@ I did a lot of data cleanup for this project (see description of update_tables.p
 - Correct the spelling of misspelled street names and location names
 - Delete a few duplicate location descriptions for the same movie.
 
-### <a name="Acknowledgements"></a>Acknowledgments
+### <a name="Acknowledgments"></a>Acknowledgments
 In addition to the support of my husband and fellow Hackbright fellows, the following people were instrumental to the project, providing mentorship, inspiration, and guidance:
 
 ##### Hackbright Instructors

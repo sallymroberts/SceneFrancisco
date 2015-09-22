@@ -164,7 +164,7 @@ The current version accepts user input to subset the list by genre and to search
 - Subset the list to only display movies for which there is a map with markers displaying filming locations. For about 20% of the movies, the San Francisco Film Commission data does not provide any specific filming locations.
 
 ##### Data cleanup 
-I did a lot of data cleanup for this project (see description of update_tables.py under Python files in Structure section for details), and I would like to also:
+I would like to continue the process of cleaning up the data by creating functions to:
 - Correct the spelling of misspelled actor, writer and director names
 - Correct the spelling of misspelled street names and location names
 - Delete a few duplicate location descriptions for the same movie.

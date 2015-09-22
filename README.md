@@ -16,7 +16,7 @@ Scene Francisco is a full stack web application that uses data published by the 
 - [Movie list page](#List)
 - [Movie detail page with Google map](#Map)
 - [Movie data from San Francisco Film Commission](#FilmData)
-- [Technical Choices](#Technology)
+- [Technical Choices / Architecture](#Technology)
 - [Structure](#Structure)
 - [Future enhancements](#Future)
 - [Acknowledgments](#Acknowledgments)

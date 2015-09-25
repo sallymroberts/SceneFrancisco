@@ -68,40 +68,69 @@ def movie_list():
 def movie_detail(movie_id):
     """Show movie detail."""
 
-    movie = Movie.query.filter_by(movie_id=movie_id).one() 
-    
-# Reformat movie titles for display on movie detail page in format:
-# "The Bachelor" and "A Jitney Elopement".
-# Titles beginning with "The " and "A " are  are formatted like
-# "Bachelor, The" and "Jitney Elopement, A", in the Movies table
-# in order to alphabetize the movie list correctly
+    movie = Movie.query.filter_by(movie_id=movie_id).one()
+    title = format_title(movie.movie_title)
+    actors = format_actors(movie.actors)
+    location_dict, sf_location_list = get_locations(movie_id)
 
-    if movie.movie_title[-5:] in (", The", ", the"):   
-        title = "The " + movie.movie_title[:-5]
-    elif movie.movie_title[-3:] in (", A", ", a"):
-        title = "A " + movie.movie_title[:-3]
+    return render_template("movie_detail.html",\
+                    movie=movie, \
+                    film_locations=location_dict, \
+                    sf_location_list=sf_location_list, \
+                    actors=actors, \
+                    title=title)
+##############################################################################
+# Helper functions
+
+def format_title(input_title):
+    """ Format movie titles from Movies table for display on movie detail page.
+        Most titles are already formatted as needed. Titles beginning with 
+        'The ' and 'A '  are formatted in the Movies table to facilitate 
+        alphabetizing the movie list, in the format: 
+        'Bachelor, The'
+        'Jitney Elopement, A'
+        
+        This function reformats these titles in the format: 
+        'The Bachelor'
+        'A Jitney Elopement'.
+    """
+
+    if input_title[-5:] in (", The", ", the"):   
+        title = "The " + input_title[:-5]
+    elif input_title[-3:] in (", A", ", a"):
+        title = "A " + input_title[:-3]
     else: 
-        title = movie.movie_title
+        title = input_title
 
-# Format 0-3 actors into a comma-separated list
+    return title
+
+def format_actors(input_actors):
+    """ Format 0-3 actors into comma-separated list for display on 
+        movie detail page.    
+    """
 
     actors = None
 
-    if movie.actors:
+    if input_actors:
         actor_list = []
-        for actor in movie.actors:
+        for actor in input_actors:
             actor_list.append(actor.actor_name)
         s = ", "
         actors = s.join(actor_list)
 
-# Format locations into 2 structures:
-# 1. A location dictionary for locations with meaningful latitude & longitude
-# 2. A location list for locations for which the Google maps API could
-#    identify the specific location from the description. For these locations,
-#    the Google maps API returns Latitude 37.7749295 and Longitude -122.419415,
-#    the generic coordinates for San Francisco.
-#    Pass these locations as a list, to display without markers on the movie
-#    detail page, because the markers would be misleading
+    return actors
+
+def get_locations(movie_id):
+    """ Retrieve filming locations and format into 2 structures:
+
+        1. Location dictionary for locations with meaningful latitude & longitude
+        2. Location list for locations for which the Google maps API could not
+           identify a specific location from the description. For these locations, 
+           the Google maps API returns latitude 37.7749295 and longitude -122.419415,
+           the generic coordinates for San Francisco.
+           Load these locations into a list, to display without markers on the movie
+           detail page, because the markers would be misleading.
+    """
 
     locations = Movie_location.query.filter_by(movie_id=movie_id).all()
 
@@ -124,14 +153,7 @@ def movie_detail(movie_id):
             location_dict[dict_key]['lng'] = location.longitude
             location_dict[dict_key]['desc'] = location.location_description
 
-    return render_template("movie_detail.html",\
-                    movie=movie, \
-                    film_locations=location_dict, \
-                    sf_location_list=sf_location_list, \
-                    actors=actors, \
-                    title=title)
-##############################################################################
-# Helper functions
+    return location_dict, sf_location_list
 
 # Setup up variables based on environment (Heroku, local) 
 PORT = int(os.environ.get("PORT", 5000))

@@ -91,15 +91,6 @@ I wanted the screen interface and appearance to be understandable, easy to use, 
 - I worked on making the page layouts clear, grouped components logically, and gave meaningful descriptive names to input fields used to search and subset the list on the movie list page
 - My first attempt to use a text-shadow effect to make the page title on the movie list page readable and attractive against the Golden Gate Bridge photo background was not very successful. I asked another fellowship participant with substantial frontend experience for suggestions and she pointed me to a web page with sample code developed by Tom Elliot to create a "sharper glow" text shadow effect. I spent a while playing around with this effect, selecting various color combinations, fonts, and font sizes, until I achieved a result that worked well. 
 
-#### Testing
-
-Given time constraints, I chose to primarily use manual testing for my application. I used many ad hoc SQL queries to verify the data. After completing the Hackbright fellowship, I created limited unit tests and doctests for the info_from_imdb_id function within the update_tables.py file in order to practice automated testing. 
-
-I have extensive experience defining and executing test plans as part of the process of developing business software using the waterfall method. I believe that automated testing is an essential agile software development practice and I would like to add tests to my application to enjoy the benefits of automated testing:
-- Reducing the risk of introducing unidentified bugs when maintaining an application
-- Facilitating the practice of refactoring code to make it clearer and more maintainable, without incurring a high risk of breaking the code in the process
-- Clearly defining expected functionality, including edge cases 
-
 ### <a name="Structure"></a>Structure
 
 ##### Python files
@@ -168,6 +159,14 @@ I would like to continue the process of cleaning up the data by creating functio
 - Correct the spelling of misspelled actor, writer and director names
 - Correct the spelling of misspelled street names and location names
 - Delete a few duplicate location descriptions for the same movie.
+
+##### Testing
+
+Given time constraints, I chose to primarily use manual testing for my project. After completing the Hackbright fellowship, I created limited unit tests and doctests for the info_from_imdb_id function within the update_tables.py file in order to practice automated testing. I have extensive experience defining and executing manual test plans as part of the process of developing business software. I believe that automated testing is an essential agile software development practice and I would like to add tests to my application to achieve the benefits of automated testing, including:
+
+- Reducing the risk of introducing unidentified bugs when maintaining an application
+- Facilitating the practice of refactoring code to make it clearer and more maintainable, without incurring a high risk of breaking the code in the process
+- Clearly defining expected functionality, including edge cases 
 
 ### <a name="Acknowledgments"></a>Acknowledgments
 In addition to the support of my husband and fellow Hackbright fellows, the following people were instrumental to the project, providing mentorship, inspiration, and guidance:

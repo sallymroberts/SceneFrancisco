@@ -32,11 +32,9 @@
           <br>
         {% endif %}
 
-        {% if movie.actors %}
+        {% if actors %}
           	<span class="movie_detail_label">Actor(s): </span>
-          	<span class="movie_detail_content"> {% for actor in movie.actors %}
-          		{{ actor.actor_name }} 
-        	{% endfor %}</span>
+          	<span class="movie_detail_content"> {{ actors }}</span>
         	<br>
         {% endif %}
 

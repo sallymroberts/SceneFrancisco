@@ -82,7 +82,27 @@ def movie_detail(movie_id):
         title = "A " + movie.movie_title[:-3]
     else: 
         title = movie.movie_title
-        
+
+# Format 0-3 actors into a comma-separated list
+
+    actors = None
+
+    if movie.actors:
+        actor_list = []
+        for actor in movie.actors:
+            actor_list.append(actor.actor_name)
+        s = ", "
+        actors = s.join(actor_list)
+
+# Format locations into 2 structures:
+# 1. A location dictionary for locations with meaningful latitude & longitude
+# 2. A location list for locations for which the Google maps API could
+#    identify the specific location from the description. For these locations,
+#    the Google maps API returns Latitude 37.7749295 and Longitude -122.419415,
+#    the generic coordinates for San Francisco.
+#    Pass these locations as a list, to display without markers on the movie
+#    detail page, because the markers would be misleading
+
     locations = Movie_location.query.filter_by(movie_id=movie_id).all()
 
     location_dict = {}
@@ -90,12 +110,6 @@ def movie_detail(movie_id):
 
     for location in locations:
         dict_key = str(location.latitude) + str(location.longitude)
-
-# The Google maps API returns Latitude 37.7749295 and Longitude -122.419415,
-# the generic coordinates for San Francisco, for locations it cannot 
-# identify more specifically.
-# Pass these locations as a list, to display without markers on the movie detail
-# page, because the markers would be misleading
 
         if location.latitude == 37.7749295 and location.longitude == -122.4194155:
             sf_location_list.append(location.location_description)
@@ -114,6 +128,7 @@ def movie_detail(movie_id):
                     movie=movie, \
                     film_locations=location_dict, \
                     sf_location_list=sf_location_list, \
+                    actors=actors, \
                     title=title)
 ##############################################################################
 # Helper functions

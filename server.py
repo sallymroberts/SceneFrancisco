@@ -30,33 +30,16 @@ def movie_list():
     """
     
     user_genre = None
-    title_search = None
+    user_title_search = None
 
     if 'genre' in request.args:
         user_genre = request.args['genre']
-        if user_genre == 'All':
-            movies = Movie.query.order_by(Movie.movie_title).all()
-        else:
-            movies = Movie.query.filter(Movie.genre.like("%" + user_genre + "%"))\
-                .order_by(Movie.movie_title)\
-                .all()
+        movies = get_movies_by_genre(user_genre)
 
     elif 'title_search' in request.args:
-        title_search = request.args['title_search']
+        user_title_search = request.args['title_search']
+        movies = get_movies_by_title(user_title_search)
         
-# Remove "the " and "a " from beginning of user title search string 
-# because titles beginning with "The " and "A " are formatted like
-# "Bachelor, The" and "Jitney Elopement, A", to alphabetize the list 
-    
-        if title_search[0:4] in ("The ", "the "):    
-            title_search = title_search[4:]
-        elif title_search[0:2] in ("A ", "a "):
-            title_search = title_search[2:]
-
-        movies = Movie.query.filter(Movie.movie_title.ilike("%" + title_search + "%"))\
-        .order_by(Movie.movie_title)\
-        .all()
-  
     else: 
         movies = Movie.query.order_by(Movie.movie_title).all()
 
@@ -82,8 +65,44 @@ def movie_detail(movie_id):
 ##############################################################################
 # Helper functions
 
+def get_movies_by_genre(user_genre):
+    """ Get subset of movies based on genre. 
+        Accepts genre entered by user, returns movies.
+
+    """
+    if user_genre == 'All':
+        movies = Movie.query.order_by(Movie.movie_title).all()
+    else:
+        movies = Movie.query.filter(Movie.genre.like("%" + user_genre + "%"))\
+            .order_by(Movie.movie_title)\
+            .all()
+
+    return movies
+
+def get_movies_by_title(user_title_search):
+    """ Get subset of movies based on full/partial title search string. 
+        Accepts title search string entered by user, returns movies.
+        First, remove "the " and "a " from beginning of user title search string 
+        because titles beginning with 'The ' and 'A ' are formatted like
+        'Bachelor, The' and 'Jitney Elopement, A', to facilitate 
+        alphabetizing the movie list.
+
+    """
+
+    if user_title_search[0:4] in ("The ", "the "):    
+        user_title_search = user_title_search[4:]
+    elif user_title_search[0:2] in ("A ", "a "):
+        user_title_search = user_title_search[2:]
+
+    movies = Movie.query.filter(Movie.movie_title.ilike("%" + user_title_search + "%"))\
+        .order_by(Movie.movie_title)\
+        .all()
+
+    return movies
+
 def format_title(input_title):
     """ Format movie titles from Movies table for display on movie detail page.
+        Accepts title, returns formatted title.
         Most titles are already formatted as needed. Titles beginning with 
         'The ' and 'A '  are formatted in the Movies table to facilitate 
         alphabetizing the movie list, in the format: 
@@ -106,7 +125,8 @@ def format_title(input_title):
 
 def format_actors(input_actors):
     """ Format 0-3 actors into comma-separated list for display on 
-        movie detail page.    
+        movie detail page.
+        Accepts list of actors, returns comma-separated string of actors    
     """
 
     actors = None
@@ -121,7 +141,8 @@ def format_actors(input_actors):
     return actors
 
 def get_locations(movie_id):
-    """ Retrieve filming locations and format into 2 structures:
+    """ Retrieve filming locations
+        Accepts movie id, returns filming locations formatted into 2 structures:
 
         1. Location dictionary for locations with meaningful latitude & longitude
         2. Location list for locations for which the Google maps API could not

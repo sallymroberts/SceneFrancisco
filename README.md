@@ -12,7 +12,7 @@ Scene Francisco is a full stack web application that uses data published by the 
   - Provides a link to the Internet Movie Database (IMDB) page for each movie
 
 ### Table of contents
-- [Problem and Solution: Why I selected this project](#Why)
+- [Why I selected this project](#Why)
 - [Movie list page](#List)
 - [Movie detail page with Google map](#Map)
 - [Movie data from San Francisco Film Commission](#FilmData)
@@ -21,10 +21,10 @@ Scene Francisco is a full stack web application that uses data published by the 
 - [Future enhancements](#Future)
 - [Acknowledgments](#Acknowledgments)
 
-### <a name="Why"></a>Problem and Solution: Why I selected this project 
-I developed this solo 4-week capstone project during the [Hackbright Academy](http://www.hackbrightacademy.com/) Summer 2015 fellowship. While I have a preference for backend development and 12 years of experience as a software engineer designing, developing and maintaining backend business software, I selected an application requiring a fairly even balance of front-end and back-end development in order to practice full stack development. I like working with data and I wanted to practice something new by using Google maps, so I thought it would be fun to use the San Francisco Film Commission data to display a map identifying filming locations for movies. I love living in the Bay Area and watching movies with scenes displaying well-known San Francisco landmarks, which is an enjoyable contrast to my experience growing up in a small Midwestern college town.  
+### <a name="Why"></a>Why I selected this project 
+I developed this solo 4-week capstone project during the [Hackbright Academy](http://www.hackbrightacademy.com/) Summer 2015 fellowship. While I have 12 years of experience as a software engineer designing, developing and maintaining backend business software, I selected an application requiring a fairly even balance of front-end and back-end development in order to practice full stack development. I like working with data and I wanted to practice something new by using Google maps, so I thought it would be fun to use the San Francisco Film Commission data to display a map identifying filming locations for movies. I love living in the Bay Area and watching movies with scenes displaying well-known San Francisco landmarks, which is an enjoyable contrast to my experience growing up in a small Midwestern college town.  
 
-I wanted to use my project to consolidate learning the full stack web development technology introduced during the first 5 weeks of the Hackbright fellowship, so that was a primary factor in my technical choices. I started by defining and populating a data model in SQLite3, using the San Francisco Film Commission data as my primary data source, supplemented by several API's to get additional data for each movie and the latitude and longitude for each movie filming location. I developed a 2-page web application (see screen shots below) using Flask for the web framework, Python for the backend, SQLAlchemy to access the data, and HTML, JavaScript, JQuery, Jinja, CSS and Twitter Bootstrap for the front-end. The summary at the top of the README describes the front-end functionality.   
+I wanted to use my project to consolidate learning the full stack web development technology introduced during the first 5 weeks of the Hackbright fellowship, so that was a primary factor in my technical choices. I started by defining and populating a data model in SQLite3, using the San Francisco Film Commission data as my primary data source, supplemented by several API's to get additional data for each movie and the latitude and longitude for each movie filming location. I developed a 2-page web application (see screen shots below) using Flask for the web framework, Python for the backend, SQLAlchemy to access the data, and HTML, JavaScript, JQuery, Jinja, CSS and Twitter Bootstrap for the front-end.    
 
 ### <a name="List"></a>Movie list page
 ![image](https://raw.githubusercontent.com/sallymroberts/SceneFrancisco/master/static/images/movie_list_screen_shot.png)

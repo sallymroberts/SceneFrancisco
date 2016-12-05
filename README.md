@@ -109,11 +109,11 @@ Contains unit tests for the info_from_imdb_id function within update_tables.py
 
 ###### Retrieve and clean up data: update_tables.py
 Contains functions using API's to retrieve additional data about the movies and to clean up the data. Data cleanup functions include:
-  - Set the movie image URL to Null (None in Python) for movie poster URL’s retrieved using the Open Movie Database (OMDB) API that had the value “N/A”.
+  - Set the movie image URL to Null (None in Python) for movie poster URL’s retrieved using the Open Movie Database (OMDB) API that had the value “N/A”
   - Update the Movies table with a reformatted title for movies beginning with “The “ and “A “ to facilitate listing the movies in alphabetical order. For example, I reformatted “The Bachelor” to “Bachelor, The”. In the app server.py file, I reformatted these titles to display the original title on the Movie detail page.
   - Update the Movies table with the correct Internet Movie Database (IMDB) ID for 33 IMDB ID’s incorrectly identified by the IMDB API for which I manually identified the correct IMDB ID. In most cases, the incorrect ID’s were for movies with similar or identical titles.
   - Update the Movies table with the correct title for 13 movies for which I manually identified the correct title while researching Internet Movie Database (IMDB) ID’s
-  - Update the Movies table with the correct release year for 16 movies for which I manually identified the correct release year while researching Internet Movie Database (IMDB) ID’s.
+  - Update the Movies table with the correct release year for 16 movies for which I manually identified the correct release year while researching Internet Movie Database (IMDB) ID’s
 
 ##### Templates and Style Sheets
 
